@@ -1,0 +1,5 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+UNDEPLOY IF EXISTS WEBSERVICE ws_total_sales_by_customer;
+
+DEPLOY WEBSERVICE ws_total_sales_by_customer LOGIN = '${databases.ldw.webcontainer.webservices.ws_total_sales_by_customer.LOGIN}' PASSWORD = '${databases.ldw.webcontainer.webservices.ws_total_sales_by_customer.PASSWORD}' ${databases.ldw.webcontainer.webservices.ws_total_sales_by_customer.PASSWORD.ENCRYPTED};
+

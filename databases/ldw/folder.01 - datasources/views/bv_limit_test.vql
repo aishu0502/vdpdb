@@ -1,0 +1,36 @@
+﻿CREATE OR REPLACE WRAPPER JDBC bv_limit_test
+    FOLDER = '/01 - datasources'
+    DATASOURCENAME=ds_oracle
+    SQLSENTENCE='SELECT *
+FROM system.comm_users
+OFFSET @offs ROWS
+FETCH NEXT @nxt ROWS ONLY'   
+    OUTPUTSCHEMA (
+        "USER_NAME" = 'USER_NAME' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='20', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE,
+        "ID" = 'ID' :'java.lang.Integer' (sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE NOT UPDATEABLE,
+        "OFFS" = 'OFFS' :'java.lang.String' (OBL) (DEFAULTVALUE='5')  EXTERN SORTABLE,
+        "NXT" = 'NXT' :'java.lang.String' (OBL) (DEFAULTVALUE='2')  EXTERN SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bv_limit_test I18N de (
+        "USER_NAME":text (sourcetypedecimals = '0', sourcetypesize = '20', sourcetypeid = '12'), 
+        "ID":int (sourcetypeid = '3'), 
+        "OFFS":text (defaultvalue = '5'), 
+        "NXT":text (defaultvalue = '2')
+    )
+    FOLDER = '/01 - datasources'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_limit_test(
+        I18N de
+        CONSTRAINTS (
+             ADD "USER_NAME" NOS ZERO ()
+             ADD "ID" NOS ZERO ()
+             ADD "OFFS" (=) OBL ONE
+             ADD "NXT" (=) OBL ONE
+        )
+        OUTPUTLIST ("ID", "USER_NAME"
+        )
+        WRAPPER (jdbc bv_limit_test)
+    );
+

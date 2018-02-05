@@ -1,0 +1,33 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JDBC ds_mysql
+    FOLDER = '/01 - datasources'
+    DRIVERCLASSNAME = 'com.mysql.jdbc.Driver'
+    DATABASEURI = '${databases.ldw.folder.01 - datasources.datasources.jdbc.ds_mysql.DATABASEURI}'
+    USERNAME = '${databases.ldw.folder.01 - datasources.datasources.jdbc.ds_mysql.USERNAME}'
+    USERPASSWORD = '${databases.ldw.folder.01 - datasources.datasources.jdbc.ds_mysql.USERPASSWORD}' ${databases.ldw.folder.01 - datasources.datasources.jdbc.ds_mysql.USERPASSWORD.ENCRYPTED}
+    CLASSPATH = 'C:\Denodo\extensions\thirdparty\lib'
+    DATABASENAME = 'mysql'
+    DATABASEVERSION = '5'
+    FETCHSIZE = 1000
+    BATCHINSERTSIZE = 200
+    VALIDATIONQUERY = 'Select 1'
+    INITIALSIZE = 4
+    MAXIDLE = 0
+    MINIDLE = 0
+    MAXACTIVE = 20
+    EXHAUSTEDACTION = 0
+    TESTONBORROW = true
+    TESTONRETURN = false
+    TESTWHILEIDLE = false
+    TIMEBETWEENEVICTION = 0
+    NUMTESTPEREVICTION = 0
+    MINEVICTABLETIME = 0
+    POOLPREPAREDSTATEMENTS = false
+    MAXSLEEPINGPS = 0
+    INITIALCAPACITYPS = 0
+    PROPERTIES ('vdp.streamRows'='yes')
+    USEEXTERNALTABLES ( 
+     ONMOVEREAD = false,
+     ONMOVEWRITE = true
+    );
+

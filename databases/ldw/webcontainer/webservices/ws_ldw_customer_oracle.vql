@@ -1,0 +1,5 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+UNDEPLOY IF EXISTS WEBSERVICE ws_ldw_customer_oracle;
+
+DEPLOY WEBSERVICE ws_ldw_customer_oracle LOGIN = '${databases.ldw.webcontainer.webservices.ws_ldw_customer_oracle.LOGIN}' PASSWORD = '${databases.ldw.webcontainer.webservices.ws_ldw_customer_oracle.PASSWORD}' ${databases.ldw.webcontainer.webservices.ws_ldw_customer_oracle.PASSWORD.ENCRYPTED};
+

@@ -1,0 +1,28 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JDBC ds_cloudera_hive
+    FOLDER = '/01 - datasources'
+    DRIVERCLASSNAME = 'com.cloudera.impala.jdbc41.Driver'
+    DATABASEURI = '${databases.ldw.folder.01 - datasources.datasources.jdbc.ds_cloudera_hive.DATABASEURI}'
+    USERNAME = '${databases.ldw.folder.01 - datasources.datasources.jdbc.ds_cloudera_hive.USERNAME}'
+    USERPASSWORD = ''
+    CLASSPATH = 'C:\Denodo-6.0\extensions\thirdparty\lib'
+    DATABASENAME = 'impala'
+    DATABASEVERSION = '2_3'
+    FETCHSIZE = 1000
+    BATCHINSERTSIZE = 200
+    VALIDATIONQUERY = 'select 1'
+    INITIALSIZE = 4
+    MAXIDLE = -1
+    MINIDLE = 0
+    MAXACTIVE = 20
+    EXHAUSTEDACTION = 1
+    TESTONBORROW = true
+    TESTONRETURN = false
+    TESTWHILEIDLE = false
+    TIMEBETWEENEVICTION = -1
+    NUMTESTPEREVICTION = 3
+    MINEVICTABLETIME = 1800000
+    POOLPREPAREDSTATEMENTS = false
+    MAXSLEEPINGPS = 4
+    INITIALCAPACITYPS = 8;
+

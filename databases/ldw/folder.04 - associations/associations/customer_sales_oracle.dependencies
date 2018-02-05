@@ -1,0 +1,7 @@
+﻿/databases/ldw/folder.04 - associations/04 - associations.vql
+/databases/ldw/folder.02 - base views/02 - base views.vql
+/databases/ldw/folder.01 - datasources/01 - datasources.vql
+/databases/ldw/folder.01 - datasources/datasources/jdbc/ds_oracle.vql
+/databases/ldw/folder.02 - base views/views/bv_ldw_store_sales_oracle.vql
+/databases/ldw/folder.01 - datasources/datasources/jdbc/ds_mysql.vql
+/databases/ldw/folder.02 - base views/views/bv_ldw_customer_mysql1.vql

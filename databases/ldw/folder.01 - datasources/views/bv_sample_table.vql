@@ -1,0 +1,29 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_sample_table
+    FOLDER = '/01 - datasources'
+    DATASOURCENAME=ds_cloudera_hive
+    SCHEMANAME = '${databases.ldw.folder.01 - datasources.views.jdbc.bv_sample_table.SCHEMANAME}'
+    RELATIONNAME='sample_table' 
+    OUTPUTSCHEMA (
+        name = 'name' :'java.lang.String' (OPT) (sourcetyperadix='0', sourcetypename='STRING', sourcetypeid='12', sourcetypedecimals='0', sourcetypesize='255')  SORTABLE,
+        descripton = 'descripton' :'java.lang.String' (OPT) (sourcetyperadix='0', sourcetypename='STRING', sourcetypeid='12', sourcetypedecimals='0', sourcetypesize='255')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bv_sample_table I18N ind1_gmt (
+        name:text (sourcetyperadix = '0', sourcetypedecimals = '0', description = '', sourcetypesize = '255', sourcetypeid = '12'), 
+        descripton:text (sourcetyperadix = '0', sourcetypedecimals = '0', description = '', sourcetypesize = '255', sourcetypeid = '12')
+    )
+    FOLDER = '/01 - datasources'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_sample_table(
+        I18N ind1_gmt
+        CONSTRAINTS (
+             ADD name (any) OPT ANY
+             ADD descripton (any) OPT ANY
+        )
+        OUTPUTLIST (descripton, name
+        )
+        WRAPPER (jdbc bv_sample_table)
+    );
+

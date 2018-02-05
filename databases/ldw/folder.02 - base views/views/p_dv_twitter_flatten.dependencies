@@ -1,0 +1,4 @@
+﻿/databases/ldw/folder.02 - base views/02 - base views.vql
+/databases/ldw/folder.02 - base views/datasources/json/ds_twitter.vql
+/databases/ldw/folder.02 - base views/views/bv_twitter.vql
+/databases/ldw/folder.02 - base views/views/dv_twitter_flatten.vql

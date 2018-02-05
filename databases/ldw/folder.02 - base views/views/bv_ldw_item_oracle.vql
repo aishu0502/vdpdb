@@ -1,0 +1,93 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_ldw_item_oracle
+    FOLDER = '/02 - base views'
+    DATASOURCENAME=ds_oracle
+    SCHEMANAME = '${databases.ldw.folder.02 - base views.views.jdbc.bv_ldw_item_oracle.SCHEMANAME}'
+    RELATIONNAME='LDW_ITEM' 
+    OUTPUTSCHEMA (
+        i_item_sk = 'I_ITEM_SK' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypename='NUMBER', sourcetypeid='3', sourcetypedecimals='0', sourcetypesize='38')  NOT NULL SORTABLE,
+        i_item_id = 'I_ITEM_ID' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypename='CHAR', sourcetypeid='1', sourcetypesize='16')  NOT NULL SORTABLE,
+        i_rec_start_date = 'I_REC_START_DATE' :'java.sql.Timestamp' (OPT) (sourcetyperadix='10', sourcetypename='DATE', sourcetypeid='93', sourcetypesize='7')  SORTABLE,
+        i_rec_end_date = 'I_REC_END_DATE' :'java.sql.Timestamp' (OPT) (sourcetyperadix='10', sourcetypename='DATE', sourcetypeid='93', sourcetypesize='7')  SORTABLE,
+        i_item_desc = 'I_ITEM_DESC' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypename='VARCHAR2', sourcetypeid='12', sourcetypesize='500')  SORTABLE,
+        i_current_price = 'I_CURRENT_PRICE' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypename='NUMBER', sourcetypeid='3', sourcetypedecimals='2', sourcetypesize='7')  SORTABLE,
+        i_wholesale_cost = 'I_WHOLESALE_COST' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypename='NUMBER', sourcetypeid='3', sourcetypedecimals='2', sourcetypesize='7')  SORTABLE,
+        i_brand_id = 'I_BRAND_ID' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypename='NUMBER', sourcetypeid='3', sourcetypedecimals='0', sourcetypesize='38')  SORTABLE,
+        i_brand = 'I_BRAND' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypename='CHAR', sourcetypeid='1', sourcetypesize='50')  SORTABLE,
+        i_class_id = 'I_CLASS_ID' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypename='NUMBER', sourcetypeid='3', sourcetypedecimals='0', sourcetypesize='38')  SORTABLE,
+        i_class = 'I_CLASS' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypename='CHAR', sourcetypeid='1', sourcetypesize='50')  SORTABLE,
+        i_category_id = 'I_CATEGORY_ID' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypename='NUMBER', sourcetypeid='3', sourcetypedecimals='0', sourcetypesize='38')  SORTABLE,
+        i_category = 'I_CATEGORY' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypename='CHAR', sourcetypeid='1', sourcetypesize='50')  SORTABLE,
+        i_manufact_id = 'I_MANUFACT_ID' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypename='NUMBER', sourcetypeid='3', sourcetypedecimals='0', sourcetypesize='38')  SORTABLE,
+        i_manufact = 'I_MANUFACT' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypename='CHAR', sourcetypeid='1', sourcetypesize='50')  SORTABLE,
+        i_size = 'I_SIZE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypename='CHAR', sourcetypeid='1', sourcetypesize='20')  SORTABLE,
+        i_formulation = 'I_FORMULATION' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypename='CHAR', sourcetypeid='1', sourcetypesize='20')  SORTABLE,
+        i_color = 'I_COLOR' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypename='CHAR', sourcetypeid='1', sourcetypesize='20')  SORTABLE,
+        i_units = 'I_UNITS' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypename='CHAR', sourcetypeid='1', sourcetypesize='10')  SORTABLE,
+        i_container = 'I_CONTAINER' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypename='CHAR', sourcetypeid='1', sourcetypesize='10')  SORTABLE,
+        i_manager_id = 'I_MANAGER_ID' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypename='NUMBER', sourcetypeid='3', sourcetypedecimals='0', sourcetypesize='38')  SORTABLE,
+        i_product_name = 'I_PRODUCT_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypename='CHAR', sourcetypeid='1', sourcetypesize='50')  SORTABLE
+    )
+    CONSTRAINT 'ITEMSK' PRIMARY KEY ( 'I_ITEM_SK' )
+    INDEX 'ITEMSK' CLUSTER UNIQUE PRIMARY ( 'I_ITEM_SK' );
+
+CREATE OR REPLACE TABLE bv_ldw_item_oracle I18N us_pst (
+        i_item_sk:decimal (sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38', sourcetypeid = '3'), 
+        i_item_id:text (sourcetyperadix = '10', sourcetypesize = '16', sourcetypeid = '1'), 
+        i_rec_start_date:date (sourcetyperadix = '10', sourcetypesize = '7', sourcetypeid = '93'), 
+        i_rec_end_date:date (sourcetyperadix = '10', sourcetypesize = '7', sourcetypeid = '93'), 
+        i_item_desc:text (sourcetyperadix = '10', sourcetypesize = '500', sourcetypeid = '12'), 
+        i_current_price:decimal (sourcetyperadix = '10', sourcetypedecimals = '2', sourcetypesize = '7', sourcetypeid = '3'), 
+        i_wholesale_cost:decimal (sourcetyperadix = '10', sourcetypedecimals = '2', sourcetypesize = '7', sourcetypeid = '3'), 
+        i_brand_id:decimal (sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38', sourcetypeid = '3'), 
+        i_brand:text (sourcetyperadix = '10', sourcetypesize = '50', sourcetypeid = '1'), 
+        i_class_id:decimal (sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38', sourcetypeid = '3'), 
+        i_class:text (sourcetyperadix = '10', sourcetypesize = '50', sourcetypeid = '1'), 
+        i_category_id:decimal (sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38', sourcetypeid = '3'), 
+        i_category:text (sourcetyperadix = '10', sourcetypesize = '50', sourcetypeid = '1'), 
+        i_manufact_id:decimal (sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38', sourcetypeid = '3'), 
+        i_manufact:text (sourcetyperadix = '10', sourcetypesize = '50', sourcetypeid = '1'), 
+        i_size:text (sourcetyperadix = '10', sourcetypesize = '20', sourcetypeid = '1'), 
+        i_formulation:text (sourcetyperadix = '10', sourcetypesize = '20', sourcetypeid = '1'), 
+        i_color:text (sourcetyperadix = '10', sourcetypesize = '20', sourcetypeid = '1'), 
+        i_units:text (sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '1'), 
+        i_container:text (sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '1'), 
+        i_manager_id:decimal (sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38', sourcetypeid = '3'), 
+        i_product_name:text (sourcetyperadix = '10', sourcetypesize = '50', sourcetypeid = '1')
+    )
+    FOLDER = '/02 - base views'
+    PRIMARY KEY ( 'i_item_sk' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_ldw_item_oracle(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD i_item_sk (any) OPT ANY
+             ADD i_item_id (any) OPT ANY
+             ADD i_rec_start_date (any) OPT ANY
+             ADD i_rec_end_date (any) OPT ANY
+             ADD i_item_desc (any) OPT ANY
+             ADD i_current_price (any) OPT ANY
+             ADD i_wholesale_cost (any) OPT ANY
+             ADD i_brand_id (any) OPT ANY
+             ADD i_brand (any) OPT ANY
+             ADD i_class_id (any) OPT ANY
+             ADD i_class (any) OPT ANY
+             ADD i_category_id (any) OPT ANY
+             ADD i_category (any) OPT ANY
+             ADD i_manufact_id (any) OPT ANY
+             ADD i_manufact (any) OPT ANY
+             ADD i_size (any) OPT ANY
+             ADD i_formulation (any) OPT ANY
+             ADD i_color (any) OPT ANY
+             ADD i_units (any) OPT ANY
+             ADD i_container (any) OPT ANY
+             ADD i_manager_id (any) OPT ANY
+             ADD i_product_name (any) OPT ANY
+        )
+        OUTPUTLIST (i_brand, i_brand_id, i_category, i_category_id, i_class, i_class_id, i_color, i_container, i_current_price, i_formulation, i_item_desc, i_item_id, i_item_sk, i_manager_id, i_manufact, i_manufact_id, i_product_name, i_rec_end_date, i_rec_start_date, i_size, i_units, i_wholesale_cost
+        )
+        WRAPPER (jdbc bv_ldw_item_oracle)
+    )
+    SMART_ONLY;
+

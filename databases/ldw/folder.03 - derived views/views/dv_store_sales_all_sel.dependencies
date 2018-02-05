@@ -1,0 +1,14 @@
+﻿/databases/ldw/folder.03 - derived views/03 - derived views.vql
+/databases/ldw/folder.02 - base views/02 - base views.vql
+/databases/ldw/folder.01 - datasources/01 - datasources.vql
+/databases/ldw/folder.01 - datasources/datasources/jdbc/ds_impala.vql
+/databases/ldw/folder.02 - base views/views/bv_ldw_store_sales_impala.vql
+/databases/ldw/folder.02 - base views/views/bv_ldw_date_impala.vql
+/databases/ldw/folder.03 - derived views/views/dv_sales_date_impala.vql
+/databases/ldw/folder.03 - derived views/views/dv_store_sales_old.vql
+/databases/ldw/folder.01 - datasources/datasources/jdbc/ds_oracle.vql
+/databases/ldw/folder.02 - base views/views/bv_ldw_store_sales_oracle.vql
+/databases/ldw/folder.02 - base views/views/bv_ldw_date_oracle.vql
+/databases/ldw/folder.03 - derived views/views/dv_sales_date_oracle.vql
+/databases/ldw/folder.03 - derived views/views/dv_store_sales_new.vql
+/databases/ldw/folder.03 - derived views/views/dv_store_sales_all.vql

@@ -1,0 +1,1441 @@
+﻿CREATE OR REPLACE WRAPPER JSON ds_twitter
+    FOLDER = '/02 - base views'
+    DATASOURCENAME=ds_twitter
+    TUPLEROOT '/JSONFile'
+    OUTPUTSCHEMA (jsonfile = 'JSONFile' : REGISTER OF (
+        pagesize = 'PAGESIZE' : 'java.lang.String' (OBL) (DEFAULTVALUE='20') EXTERN,
+        query = 'QUERY' : 'java.lang.String' (OBL) (DEFAULTVALUE='Denodo') EXTERN,
+        statuses = 'statuses' : ARRAY OF (
+            statuses = 'statuses' : REGISTER OF (
+                created_at = 'created_at' : 'java.lang.String',
+                id = 'id' : 'java.lang.Long',
+                id_str = 'id_str' : 'java.lang.String',
+                text = 'text' : 'java.lang.String',
+                truncated = 'truncated' : 'java.lang.String',
+                entities = 'entities' : REGISTER OF (
+                    hashtags = 'hashtags' : ARRAY OF (
+                        hashtags = 'hashtags' : REGISTER OF (
+                            text = 'text' : 'java.lang.String',
+                            indices = 'indices' : ARRAY OF (
+                                indices = 'indices' : REGISTER OF (
+                                    field_0 = 'field_0' : 'java.lang.Integer'
+                                )
+                            )
+                        )
+                    ),
+                    symbols = 'symbols' : ARRAY OF (
+                        symbols = 'symbols' : REGISTER OF (
+                            field_0 = 'field_0' : 'java.lang.String'
+                        )
+                    ),
+                    user_mentions = 'user_mentions' : ARRAY OF (
+                        user_mentions = 'user_mentions' : REGISTER OF (
+                            field_0 = 'field_0' : 'java.lang.String',
+                            screen_name = 'screen_name' : 'java.lang.String',
+                            name = 'name' : 'java.lang.String',
+                            id = 'id' : 'java.lang.Long',
+                            id_str = 'id_str' : 'java.lang.String',
+                            indices = 'indices' : ARRAY OF (
+                                indices = 'indices' : REGISTER OF (
+                                    field_0 = 'field_0' : 'java.lang.Integer'
+                                )
+                            )
+                        )
+                    ),
+                    urls = 'urls' : ARRAY OF (
+                        urls = 'urls' : REGISTER OF (
+                            url = 'url' : 'java.lang.String',
+                            expanded_url = 'expanded_url' : 'java.lang.String',
+                            display_url = 'display_url' : 'java.lang.String',
+                            indices = 'indices' : ARRAY OF (
+                                indices = 'indices' : REGISTER OF (
+                                    field_0 = 'field_0' : 'java.lang.Integer'
+                                )
+                            )
+                        )
+                    ),
+                    media = 'media' : ARRAY OF (
+                        media = 'media' : REGISTER OF (
+                            id = 'id' : 'java.lang.Long',
+                            id_str = 'id_str' : 'java.lang.String',
+                            indices = 'indices' : ARRAY OF (
+                                indices = 'indices' : REGISTER OF (
+                                    field_0 = 'field_0' : 'java.lang.Integer'
+                                )
+                            ),
+                            media_url = 'media_url' : 'java.lang.String',
+                            media_url_https = 'media_url_https' : 'java.lang.String',
+                            url = 'url' : 'java.lang.String',
+                            display_url = 'display_url' : 'java.lang.String',
+                            expanded_url = 'expanded_url' : 'java.lang.String',
+                            type = 'type' : 'java.lang.String',
+                            sizes = 'sizes' : REGISTER OF (
+                                large = 'large' : REGISTER OF (
+                                    w = 'w' : 'java.lang.Integer',
+                                    h = 'h' : 'java.lang.Integer',
+                                    resize = 'resize' : 'java.lang.String'
+                                ),
+                                medium = 'medium' : REGISTER OF (
+                                    w = 'w' : 'java.lang.Integer',
+                                    h = 'h' : 'java.lang.Integer',
+                                    resize = 'resize' : 'java.lang.String'
+                                ),
+                                small = 'small' : REGISTER OF (
+                                    w = 'w' : 'java.lang.Integer',
+                                    h = 'h' : 'java.lang.Integer',
+                                    resize = 'resize' : 'java.lang.String'
+                                ),
+                                thumb = 'thumb' : REGISTER OF (
+                                    w = 'w' : 'java.lang.Integer',
+                                    h = 'h' : 'java.lang.Integer',
+                                    resize = 'resize' : 'java.lang.String'
+                                )
+                            ),
+                            source_status_id = 'source_status_id' : 'java.lang.Long',
+                            source_status_id_str = 'source_status_id_str' : 'java.lang.String',
+                            source_user_id = 'source_user_id' : 'java.lang.Integer',
+                            source_user_id_str = 'source_user_id_str' : 'java.lang.String'
+                        )
+                    )
+                ),
+                metadata = 'metadata' : REGISTER OF (
+                    iso_language_code = 'iso_language_code' : 'java.lang.String',
+                    result_type = 'result_type' : 'java.lang.String'
+                ),
+                source = 'source' : 'java.lang.String',
+                in_reply_to_status_id = 'in_reply_to_status_id' : 'java.lang.String',
+                in_reply_to_status_id_str = 'in_reply_to_status_id_str' : 'java.lang.String',
+                in_reply_to_user_id = 'in_reply_to_user_id' : 'java.lang.String',
+                in_reply_to_user_id_str = 'in_reply_to_user_id_str' : 'java.lang.String',
+                in_reply_to_screen_name = 'in_reply_to_screen_name' : 'java.lang.String',
+                user_0 = 'user' : REGISTER OF (
+                    id = 'id' : 'java.lang.Long',
+                    id_str = 'id_str' : 'java.lang.String',
+                    name = 'name' : 'java.lang.String',
+                    screen_name = 'screen_name' : 'java.lang.String',
+                    location = 'location' : 'java.lang.String',
+                    description = 'description' : 'java.lang.String',
+                    url = 'url' : 'java.lang.String',
+                    entities = 'entities' : REGISTER OF (
+                        url = 'url' : REGISTER OF (
+                            urls = 'urls' : ARRAY OF (
+                                urls = 'urls' : REGISTER OF (
+                                    url = 'url' : 'java.lang.String',
+                                    expanded_url = 'expanded_url' : 'java.lang.String',
+                                    display_url = 'display_url' : 'java.lang.String',
+                                    indices = 'indices' : ARRAY OF (
+                                        indices = 'indices' : REGISTER OF (
+                                            field_0 = 'field_0' : 'java.lang.Integer'
+                                        )
+                                    )
+                                )
+                            )
+                        ),
+                        description = 'description' : REGISTER OF (
+                            urls = 'urls' : ARRAY OF (
+                                urls = 'urls' : REGISTER OF (
+                                    field_0 = 'field_0' : 'java.lang.String'
+                                )
+                            )
+                        )
+                    ),
+                    protected = 'protected' : 'java.lang.String',
+                    followers_count = 'followers_count' : 'java.lang.Integer',
+                    friends_count = 'friends_count' : 'java.lang.Integer',
+                    listed_count = 'listed_count' : 'java.lang.Integer',
+                    created_at = 'created_at' : 'java.lang.String',
+                    favourites_count = 'favourites_count' : 'java.lang.Integer',
+                    utc_offset = 'utc_offset' : 'java.lang.Integer',
+                    time_zone = 'time_zone' : 'java.lang.String',
+                    geo_enabled = 'geo_enabled' : 'java.lang.String',
+                    verified = 'verified' : 'java.lang.String',
+                    statuses_count = 'statuses_count' : 'java.lang.Integer',
+                    lang = 'lang' : 'java.lang.String',
+                    contributors_enabled = 'contributors_enabled' : 'java.lang.String',
+                    is_translator = 'is_translator' : 'java.lang.String',
+                    is_translation_enabled = 'is_translation_enabled' : 'java.lang.String',
+                    profile_background_color = 'profile_background_color' : 'java.lang.String',
+                    profile_background_image_url = 'profile_background_image_url' : 'java.lang.String',
+                    profile_background_image_url_https = 'profile_background_image_url_https' : 'java.lang.String',
+                    profile_background_tile = 'profile_background_tile' : 'java.lang.String',
+                    profile_image_url = 'profile_image_url' : 'java.lang.String',
+                    profile_image_url_https = 'profile_image_url_https' : 'java.lang.String',
+                    profile_banner_url = 'profile_banner_url' : 'java.lang.String',
+                    profile_link_color = 'profile_link_color' : 'java.lang.String',
+                    profile_sidebar_border_color = 'profile_sidebar_border_color' : 'java.lang.String',
+                    profile_sidebar_fill_color = 'profile_sidebar_fill_color' : 'java.lang.String',
+                    profile_text_color = 'profile_text_color' : 'java.lang.String',
+                    profile_use_background_image = 'profile_use_background_image' : 'java.lang.String',
+                    has_extended_profile = 'has_extended_profile' : 'java.lang.String',
+                    default_profile = 'default_profile' : 'java.lang.String',
+                    default_profile_image = 'default_profile_image' : 'java.lang.String',
+                    following = 'following' : 'java.lang.String',
+                    follow_request_sent = 'follow_request_sent' : 'java.lang.String',
+                    notifications = 'notifications' : 'java.lang.String',
+                    translator_type = 'translator_type' : 'java.lang.String'
+                ),
+                contributors = 'contributors' : 'java.lang.String',
+                is_quote_status = 'is_quote_status' : 'java.lang.String',
+                retweet_count = 'retweet_count' : 'java.lang.Integer',
+                favorite_count = 'favorite_count' : 'java.lang.Integer',
+                favorited = 'favorited' : 'java.lang.String',
+                retweeted = 'retweeted' : 'java.lang.String',
+                possibly_sensitive = 'possibly_sensitive' : 'java.lang.String',
+                lang = 'lang' : 'java.lang.String',
+                retweeted_status = 'retweeted_status' : REGISTER OF (
+                    created_at = 'created_at' : 'java.lang.String',
+                    id = 'id' : 'java.lang.Long',
+                    id_str = 'id_str' : 'java.lang.String',
+                    text = 'text' : 'java.lang.String',
+                    truncated = 'truncated' : 'java.lang.String',
+                    entities = 'entities' : REGISTER OF (
+                        hashtags = 'hashtags' : ARRAY OF (
+                            hashtags = 'hashtags' : REGISTER OF (
+                                text = 'text' : 'java.lang.String',
+                                indices = 'indices' : ARRAY OF (
+                                    indices = 'indices' : REGISTER OF (
+                                        field_0 = 'field_0' : 'java.lang.Integer'
+                                    )
+                                )
+                            )
+                        ),
+                        symbols = 'symbols' : ARRAY OF (
+                            symbols = 'symbols' : REGISTER OF (
+                                field_0 = 'field_0' : 'java.lang.String'
+                            )
+                        ),
+                        user_mentions = 'user_mentions' : ARRAY OF (
+                            user_mentions = 'user_mentions' : REGISTER OF (
+                                field_0 = 'field_0' : 'java.lang.String',
+                                screen_name = 'screen_name' : 'java.lang.String',
+                                name = 'name' : 'java.lang.String',
+                                id = 'id' : 'java.lang.Long',
+                                id_str = 'id_str' : 'java.lang.String',
+                                indices = 'indices' : ARRAY OF (
+                                    indices = 'indices' : REGISTER OF (
+                                        field_0 = 'field_0' : 'java.lang.Integer'
+                                    )
+                                )
+                            )
+                        ),
+                        urls = 'urls' : ARRAY OF (
+                            urls = 'urls' : REGISTER OF (
+                                url = 'url' : 'java.lang.String',
+                                expanded_url = 'expanded_url' : 'java.lang.String',
+                                display_url = 'display_url' : 'java.lang.String',
+                                indices = 'indices' : ARRAY OF (
+                                    indices = 'indices' : REGISTER OF (
+                                        field_0 = 'field_0' : 'java.lang.Integer'
+                                    )
+                                )
+                            )
+                        ),
+                        media = 'media' : ARRAY OF (
+                            media = 'media' : REGISTER OF (
+                                id = 'id' : 'java.lang.Long',
+                                id_str = 'id_str' : 'java.lang.String',
+                                indices = 'indices' : ARRAY OF (
+                                    indices = 'indices' : REGISTER OF (
+                                        field_0 = 'field_0' : 'java.lang.Integer'
+                                    )
+                                ),
+                                media_url = 'media_url' : 'java.lang.String',
+                                media_url_https = 'media_url_https' : 'java.lang.String',
+                                url = 'url' : 'java.lang.String',
+                                display_url = 'display_url' : 'java.lang.String',
+                                expanded_url = 'expanded_url' : 'java.lang.String',
+                                type = 'type' : 'java.lang.String',
+                                sizes = 'sizes' : REGISTER OF (
+                                    large = 'large' : REGISTER OF (
+                                        w = 'w' : 'java.lang.Integer',
+                                        h = 'h' : 'java.lang.Integer',
+                                        resize = 'resize' : 'java.lang.String'
+                                    ),
+                                    medium = 'medium' : REGISTER OF (
+                                        w = 'w' : 'java.lang.Integer',
+                                        h = 'h' : 'java.lang.Integer',
+                                        resize = 'resize' : 'java.lang.String'
+                                    ),
+                                    small = 'small' : REGISTER OF (
+                                        w = 'w' : 'java.lang.Integer',
+                                        h = 'h' : 'java.lang.Integer',
+                                        resize = 'resize' : 'java.lang.String'
+                                    ),
+                                    thumb = 'thumb' : REGISTER OF (
+                                        w = 'w' : 'java.lang.Integer',
+                                        h = 'h' : 'java.lang.Integer',
+                                        resize = 'resize' : 'java.lang.String'
+                                    )
+                                )
+                            )
+                        )
+                    ),
+                    metadata = 'metadata' : REGISTER OF (
+                        iso_language_code = 'iso_language_code' : 'java.lang.String',
+                        result_type = 'result_type' : 'java.lang.String'
+                    ),
+                    source = 'source' : 'java.lang.String',
+                    in_reply_to_status_id = 'in_reply_to_status_id' : 'java.lang.String',
+                    in_reply_to_status_id_str = 'in_reply_to_status_id_str' : 'java.lang.String',
+                    in_reply_to_user_id = 'in_reply_to_user_id' : 'java.lang.String',
+                    in_reply_to_user_id_str = 'in_reply_to_user_id_str' : 'java.lang.String',
+                    in_reply_to_screen_name = 'in_reply_to_screen_name' : 'java.lang.String',
+                    user_0 = 'user' : REGISTER OF (
+                        id = 'id' : 'java.lang.Long',
+                        id_str = 'id_str' : 'java.lang.String',
+                        name = 'name' : 'java.lang.String',
+                        screen_name = 'screen_name' : 'java.lang.String',
+                        location = 'location' : 'java.lang.String',
+                        description = 'description' : 'java.lang.String',
+                        url = 'url' : 'java.lang.String',
+                        entities = 'entities' : REGISTER OF (
+                            url = 'url' : REGISTER OF (
+                                urls = 'urls' : ARRAY OF (
+                                    urls = 'urls' : REGISTER OF (
+                                        url = 'url' : 'java.lang.String',
+                                        expanded_url = 'expanded_url' : 'java.lang.String',
+                                        display_url = 'display_url' : 'java.lang.String',
+                                        indices = 'indices' : ARRAY OF (
+                                            indices = 'indices' : REGISTER OF (
+                                                field_0 = 'field_0' : 'java.lang.Integer'
+                                            )
+                                        )
+                                    )
+                                )
+                            ),
+                            description = 'description' : REGISTER OF (
+                                urls = 'urls' : ARRAY OF (
+                                    urls = 'urls' : REGISTER OF (
+                                        url = 'url' : 'java.lang.String',
+                                        expanded_url = 'expanded_url' : 'java.lang.String',
+                                        display_url = 'display_url' : 'java.lang.String',
+                                        indices = 'indices' : ARRAY OF (
+                                            indices = 'indices' : REGISTER OF (
+                                                field_0 = 'field_0' : 'java.lang.Integer'
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        ),
+                        protected = 'protected' : 'java.lang.String',
+                        followers_count = 'followers_count' : 'java.lang.Integer',
+                        friends_count = 'friends_count' : 'java.lang.Integer',
+                        listed_count = 'listed_count' : 'java.lang.Integer',
+                        created_at = 'created_at' : 'java.lang.String',
+                        favourites_count = 'favourites_count' : 'java.lang.Integer',
+                        utc_offset = 'utc_offset' : 'java.lang.Integer',
+                        time_zone = 'time_zone' : 'java.lang.String',
+                        geo_enabled = 'geo_enabled' : 'java.lang.String',
+                        verified = 'verified' : 'java.lang.String',
+                        statuses_count = 'statuses_count' : 'java.lang.Integer',
+                        lang = 'lang' : 'java.lang.String',
+                        contributors_enabled = 'contributors_enabled' : 'java.lang.String',
+                        is_translator = 'is_translator' : 'java.lang.String',
+                        is_translation_enabled = 'is_translation_enabled' : 'java.lang.String',
+                        profile_background_color = 'profile_background_color' : 'java.lang.String',
+                        profile_background_image_url = 'profile_background_image_url' : 'java.lang.String',
+                        profile_background_image_url_https = 'profile_background_image_url_https' : 'java.lang.String',
+                        profile_background_tile = 'profile_background_tile' : 'java.lang.String',
+                        profile_image_url = 'profile_image_url' : 'java.lang.String',
+                        profile_image_url_https = 'profile_image_url_https' : 'java.lang.String',
+                        profile_banner_url = 'profile_banner_url' : 'java.lang.String',
+                        profile_link_color = 'profile_link_color' : 'java.lang.String',
+                        profile_sidebar_border_color = 'profile_sidebar_border_color' : 'java.lang.String',
+                        profile_sidebar_fill_color = 'profile_sidebar_fill_color' : 'java.lang.String',
+                        profile_text_color = 'profile_text_color' : 'java.lang.String',
+                        profile_use_background_image = 'profile_use_background_image' : 'java.lang.String',
+                        has_extended_profile = 'has_extended_profile' : 'java.lang.String',
+                        default_profile = 'default_profile' : 'java.lang.String',
+                        default_profile_image = 'default_profile_image' : 'java.lang.String',
+                        following = 'following' : 'java.lang.String',
+                        follow_request_sent = 'follow_request_sent' : 'java.lang.String',
+                        notifications = 'notifications' : 'java.lang.String',
+                        translator_type = 'translator_type' : 'java.lang.String'
+                    ),
+                    geo = 'geo' : 'java.lang.String',
+                    coordinates = 'coordinates' : 'java.lang.String',
+                    place = 'place' : 'java.lang.String',
+                    contributors = 'contributors' : 'java.lang.String',
+                    is_quote_status = 'is_quote_status' : 'java.lang.String',
+                    retweet_count = 'retweet_count' : 'java.lang.Integer',
+                    favorite_count = 'favorite_count' : 'java.lang.Integer',
+                    favorited = 'favorited' : 'java.lang.String',
+                    retweeted = 'retweeted' : 'java.lang.String',
+                    possibly_sensitive = 'possibly_sensitive' : 'java.lang.String',
+                    lang = 'lang' : 'java.lang.String',
+                    extended_entities = 'extended_entities' : REGISTER OF (
+                        media = 'media' : ARRAY OF (
+                            media = 'media' : REGISTER OF (
+                                id = 'id' : 'java.lang.Long',
+                                id_str = 'id_str' : 'java.lang.String',
+                                indices = 'indices' : ARRAY OF (
+                                    indices = 'indices' : REGISTER OF (
+                                        field_0 = 'field_0' : 'java.lang.Integer'
+                                    )
+                                ),
+                                media_url = 'media_url' : 'java.lang.String',
+                                media_url_https = 'media_url_https' : 'java.lang.String',
+                                url = 'url' : 'java.lang.String',
+                                display_url = 'display_url' : 'java.lang.String',
+                                expanded_url = 'expanded_url' : 'java.lang.String',
+                                type = 'type' : 'java.lang.String',
+                                sizes = 'sizes' : REGISTER OF (
+                                    large = 'large' : REGISTER OF (
+                                        w = 'w' : 'java.lang.Integer',
+                                        h = 'h' : 'java.lang.Integer',
+                                        resize = 'resize' : 'java.lang.String'
+                                    ),
+                                    medium = 'medium' : REGISTER OF (
+                                        w = 'w' : 'java.lang.Integer',
+                                        h = 'h' : 'java.lang.Integer',
+                                        resize = 'resize' : 'java.lang.String'
+                                    ),
+                                    small = 'small' : REGISTER OF (
+                                        w = 'w' : 'java.lang.Integer',
+                                        h = 'h' : 'java.lang.Integer',
+                                        resize = 'resize' : 'java.lang.String'
+                                    ),
+                                    thumb = 'thumb' : REGISTER OF (
+                                        w = 'w' : 'java.lang.Integer',
+                                        h = 'h' : 'java.lang.Integer',
+                                        resize = 'resize' : 'java.lang.String'
+                                    )
+                                )
+                            )
+                        )
+                    ),
+                    quoted_status_id = 'quoted_status_id' : 'java.lang.Long',
+                    quoted_status_id_str = 'quoted_status_id_str' : 'java.lang.String',
+                    quoted_status = 'quoted_status' : REGISTER OF (
+                        created_at = 'created_at' : 'java.lang.String',
+                        id = 'id' : 'java.lang.Long',
+                        id_str = 'id_str' : 'java.lang.String',
+                        text = 'text' : 'java.lang.String',
+                        truncated = 'truncated' : 'java.lang.String',
+                        entities = 'entities' : REGISTER OF (
+                            hashtags = 'hashtags' : ARRAY OF (
+                                hashtags = 'hashtags' : REGISTER OF (
+                                    text = 'text' : 'java.lang.String',
+                                    indices = 'indices' : ARRAY OF (
+                                        indices = 'indices' : REGISTER OF (
+                                            field_0 = 'field_0' : 'java.lang.Integer'
+                                        )
+                                    )
+                                )
+                            ),
+                            symbols = 'symbols' : ARRAY OF (
+                                symbols = 'symbols' : REGISTER OF (
+                                    field_0 = 'field_0' : 'java.lang.String'
+                                )
+                            ),
+                            user_mentions = 'user_mentions' : ARRAY OF (
+                                user_mentions = 'user_mentions' : REGISTER OF (
+                                    field_0 = 'field_0' : 'java.lang.String'
+                                )
+                            ),
+                            urls = 'urls' : ARRAY OF (
+                                urls = 'urls' : REGISTER OF (
+                                    url = 'url' : 'java.lang.String',
+                                    expanded_url = 'expanded_url' : 'java.lang.String',
+                                    display_url = 'display_url' : 'java.lang.String',
+                                    indices = 'indices' : ARRAY OF (
+                                        indices = 'indices' : REGISTER OF (
+                                            field_0 = 'field_0' : 'java.lang.Integer'
+                                        )
+                                    )
+                                )
+                            )
+                        ),
+                        metadata = 'metadata' : REGISTER OF (
+                            iso_language_code = 'iso_language_code' : 'java.lang.String',
+                            result_type = 'result_type' : 'java.lang.String'
+                        ),
+                        source = 'source' : 'java.lang.String',
+                        in_reply_to_status_id = 'in_reply_to_status_id' : 'java.lang.String',
+                        in_reply_to_status_id_str = 'in_reply_to_status_id_str' : 'java.lang.String',
+                        in_reply_to_user_id = 'in_reply_to_user_id' : 'java.lang.String',
+                        in_reply_to_user_id_str = 'in_reply_to_user_id_str' : 'java.lang.String',
+                        in_reply_to_screen_name = 'in_reply_to_screen_name' : 'java.lang.String',
+                        user_0 = 'user' : REGISTER OF (
+                            id = 'id' : 'java.lang.Long',
+                            id_str = 'id_str' : 'java.lang.String',
+                            name = 'name' : 'java.lang.String',
+                            screen_name = 'screen_name' : 'java.lang.String',
+                            location = 'location' : 'java.lang.String',
+                            description = 'description' : 'java.lang.String',
+                            url = 'url' : 'java.lang.String',
+                            entities = 'entities' : REGISTER OF (
+                                url = 'url' : REGISTER OF (
+                                    urls = 'urls' : ARRAY OF (
+                                        urls = 'urls' : REGISTER OF (
+                                            url = 'url' : 'java.lang.String',
+                                            expanded_url = 'expanded_url' : 'java.lang.String',
+                                            display_url = 'display_url' : 'java.lang.String',
+                                            indices = 'indices' : ARRAY OF (
+                                                indices = 'indices' : REGISTER OF (
+                                                    field_0 = 'field_0' : 'java.lang.Integer'
+                                                )
+                                            )
+                                        )
+                                    )
+                                ),
+                                description = 'description' : REGISTER OF (
+                                    urls = 'urls' : ARRAY OF (
+                                        urls = 'urls' : REGISTER OF (
+                                            field_0 = 'field_0' : 'java.lang.String'
+                                        )
+                                    )
+                                )
+                            ),
+                            protected = 'protected' : 'java.lang.String',
+                            followers_count = 'followers_count' : 'java.lang.Integer',
+                            friends_count = 'friends_count' : 'java.lang.Integer',
+                            listed_count = 'listed_count' : 'java.lang.Integer',
+                            created_at = 'created_at' : 'java.lang.String',
+                            favourites_count = 'favourites_count' : 'java.lang.Integer',
+                            utc_offset = 'utc_offset' : 'java.lang.Integer',
+                            time_zone = 'time_zone' : 'java.lang.String',
+                            geo_enabled = 'geo_enabled' : 'java.lang.String',
+                            verified = 'verified' : 'java.lang.String',
+                            statuses_count = 'statuses_count' : 'java.lang.Integer',
+                            lang = 'lang' : 'java.lang.String',
+                            contributors_enabled = 'contributors_enabled' : 'java.lang.String',
+                            is_translator = 'is_translator' : 'java.lang.String',
+                            is_translation_enabled = 'is_translation_enabled' : 'java.lang.String',
+                            profile_background_color = 'profile_background_color' : 'java.lang.String',
+                            profile_background_image_url = 'profile_background_image_url' : 'java.lang.String',
+                            profile_background_image_url_https = 'profile_background_image_url_https' : 'java.lang.String',
+                            profile_background_tile = 'profile_background_tile' : 'java.lang.String',
+                            profile_image_url = 'profile_image_url' : 'java.lang.String',
+                            profile_image_url_https = 'profile_image_url_https' : 'java.lang.String',
+                            profile_banner_url = 'profile_banner_url' : 'java.lang.String',
+                            profile_link_color = 'profile_link_color' : 'java.lang.String',
+                            profile_sidebar_border_color = 'profile_sidebar_border_color' : 'java.lang.String',
+                            profile_sidebar_fill_color = 'profile_sidebar_fill_color' : 'java.lang.String',
+                            profile_text_color = 'profile_text_color' : 'java.lang.String',
+                            profile_use_background_image = 'profile_use_background_image' : 'java.lang.String',
+                            has_extended_profile = 'has_extended_profile' : 'java.lang.String',
+                            default_profile = 'default_profile' : 'java.lang.String',
+                            default_profile_image = 'default_profile_image' : 'java.lang.String',
+                            following = 'following' : 'java.lang.String',
+                            follow_request_sent = 'follow_request_sent' : 'java.lang.String',
+                            notifications = 'notifications' : 'java.lang.String',
+                            translator_type = 'translator_type' : 'java.lang.String'
+                        ),
+                        geo = 'geo' : 'java.lang.String',
+                        coordinates = 'coordinates' : 'java.lang.String',
+                        place = 'place' : 'java.lang.String',
+                        contributors = 'contributors' : 'java.lang.String',
+                        is_quote_status = 'is_quote_status' : 'java.lang.String',
+                        retweet_count = 'retweet_count' : 'java.lang.Integer',
+                        favorite_count = 'favorite_count' : 'java.lang.Integer',
+                        favorited = 'favorited' : 'java.lang.String',
+                        retweeted = 'retweeted' : 'java.lang.String',
+                        possibly_sensitive = 'possibly_sensitive' : 'java.lang.String',
+                        lang = 'lang' : 'java.lang.String'
+                    )
+                ),
+                extended_entities = 'extended_entities' : REGISTER OF (
+                    media = 'media' : ARRAY OF (
+                        media = 'media' : REGISTER OF (
+                            id = 'id' : 'java.lang.Long',
+                            id_str = 'id_str' : 'java.lang.String',
+                            indices = 'indices' : ARRAY OF (
+                                indices = 'indices' : REGISTER OF (
+                                    field_0 = 'field_0' : 'java.lang.Integer'
+                                )
+                            ),
+                            media_url = 'media_url' : 'java.lang.String',
+                            media_url_https = 'media_url_https' : 'java.lang.String',
+                            url = 'url' : 'java.lang.String',
+                            display_url = 'display_url' : 'java.lang.String',
+                            expanded_url = 'expanded_url' : 'java.lang.String',
+                            type = 'type' : 'java.lang.String',
+                            sizes = 'sizes' : REGISTER OF (
+                                large = 'large' : REGISTER OF (
+                                    w = 'w' : 'java.lang.Integer',
+                                    h = 'h' : 'java.lang.Integer',
+                                    resize = 'resize' : 'java.lang.String'
+                                ),
+                                medium = 'medium' : REGISTER OF (
+                                    w = 'w' : 'java.lang.Integer',
+                                    h = 'h' : 'java.lang.Integer',
+                                    resize = 'resize' : 'java.lang.String'
+                                ),
+                                small = 'small' : REGISTER OF (
+                                    w = 'w' : 'java.lang.Integer',
+                                    h = 'h' : 'java.lang.Integer',
+                                    resize = 'resize' : 'java.lang.String'
+                                ),
+                                thumb = 'thumb' : REGISTER OF (
+                                    w = 'w' : 'java.lang.Integer',
+                                    h = 'h' : 'java.lang.Integer',
+                                    resize = 'resize' : 'java.lang.String'
+                                )
+                            ),
+                            source_status_id = 'source_status_id' : 'java.lang.Long',
+                            source_status_id_str = 'source_status_id_str' : 'java.lang.String',
+                            source_user_id = 'source_user_id' : 'java.lang.Integer',
+                            source_user_id_str = 'source_user_id_str' : 'java.lang.String'
+                        )
+                    )
+                ),
+                quoted_status_id = 'quoted_status_id' : 'java.lang.Long',
+                quoted_status_id_str = 'quoted_status_id_str' : 'java.lang.String',
+                geo = 'geo' : REGISTER OF (
+                    type = 'type' : 'java.lang.String',
+                    coordinates = 'coordinates' : ARRAY OF (
+                        coordinates = 'coordinates' : REGISTER OF (
+                            field_0 = 'field_0' : 'java.lang.Double'
+                        )
+                    )
+                ),
+                coordinates = 'coordinates' : REGISTER OF (
+                    type = 'type' : 'java.lang.String',
+                    coordinates = 'coordinates' : ARRAY OF (
+                        coordinates = 'coordinates' : REGISTER OF (
+                            field_0 = 'field_0' : 'java.lang.Double'
+                        )
+                    )
+                ),
+                place = 'place' : REGISTER OF (
+                    id = 'id' : 'java.lang.String',
+                    url = 'url' : 'java.lang.String',
+                    place_type = 'place_type' : 'java.lang.String',
+                    name = 'name' : 'java.lang.String',
+                    full_name = 'full_name' : 'java.lang.String',
+                    country_code = 'country_code' : 'java.lang.String',
+                    country = 'country' : 'java.lang.String',
+                    contained_within = 'contained_within' : ARRAY OF (
+                        contained_within = 'contained_within' : REGISTER OF (
+                            field_0 = 'field_0' : 'java.lang.String'
+                        )
+                    ),
+                    bounding_box = 'bounding_box' : REGISTER OF (
+                        type = 'type' : 'java.lang.String',
+                        coordinates = 'coordinates' : ARRAY OF (
+                            coordinates = 'coordinates' : REGISTER OF (
+                                coordinates = 'coordinates' : ARRAY OF (
+                                    coordinates = 'coordinates' : REGISTER OF (
+                                        coordinates = 'coordinates' : ARRAY OF (
+                                            coordinates = 'coordinates' : REGISTER OF (
+                                                field_0 = 'field_0' : 'java.lang.Double'
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        ),
+        search_metadata = 'search_metadata' : REGISTER OF (
+            completed_in = 'completed_in' : 'java.lang.Double',
+            max_id = 'max_id' : 'java.lang.Long',
+            max_id_str = 'max_id_str' : 'java.lang.String',
+            next_results = 'next_results' : 'java.lang.String',
+            query = 'query' : 'java.lang.String',
+            refresh_url = 'refresh_url' : 'java.lang.String',
+            count = 'count' : 'java.lang.Integer',
+            since_id = 'since_id' : 'java.lang.Integer',
+            since_id_str = 'since_id_str' : 'java.lang.String'
+        )
+    )
+    );
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_hashtags_hashtags_indices_indices AS REGISTER OF (field_0:int);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_hashtags_hashtags_indices AS ARRAY OF ds_twitter_statuses_statuses_entities_hashtags_hashtags_indices_indices;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_hashtags_hashtags AS REGISTER OF (text:text, indices:ds_twitter_statuses_statuses_entities_hashtags_hashtags_indices);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_hashtags AS ARRAY OF ds_twitter_statuses_statuses_entities_hashtags_hashtags;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_symbols_symbols AS REGISTER OF (field_0:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_symbols AS ARRAY OF ds_twitter_statuses_statuses_entities_symbols_symbols;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_user_mentions_user_mentions_indices_indices AS REGISTER OF (field_0:int);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_user_mentions_user_mentions_indices AS ARRAY OF ds_twitter_statuses_statuses_entities_user_mentions_user_mentions_indices_indices;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_user_mentions_user_mentions AS REGISTER OF (field_0:text, screen_name:text, name:text, id:long, id_str:text, indices:ds_twitter_statuses_statuses_entities_user_mentions_user_mentions_indices);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_user_mentions AS ARRAY OF ds_twitter_statuses_statuses_entities_user_mentions_user_mentions;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_urls_urls_indices_indices AS REGISTER OF (field_0:int);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_urls_urls_indices AS ARRAY OF ds_twitter_statuses_statuses_entities_urls_urls_indices_indices;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_urls_urls AS REGISTER OF (url:text, expanded_url:text, display_url:text, indices:ds_twitter_statuses_statuses_entities_urls_urls_indices);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_urls AS ARRAY OF ds_twitter_statuses_statuses_entities_urls_urls;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_media_media_indices_indices AS REGISTER OF (field_0:int);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_media_media_indices AS ARRAY OF ds_twitter_statuses_statuses_entities_media_media_indices_indices;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_media_media_sizes_large AS REGISTER OF (w:int, h:int, resize:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_media_media_sizes_medium AS REGISTER OF (w:int, h:int, resize:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_media_media_sizes_small AS REGISTER OF (w:int, h:int, resize:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_media_media_sizes_thumb AS REGISTER OF (w:int, h:int, resize:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_media_media_sizes AS REGISTER OF (large:ds_twitter_statuses_statuses_entities_media_media_sizes_large, medium:ds_twitter_statuses_statuses_entities_media_media_sizes_medium, small:ds_twitter_statuses_statuses_entities_media_media_sizes_small, thumb:ds_twitter_statuses_statuses_entities_media_media_sizes_thumb);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_media_media AS REGISTER OF (id:long, id_str:text, indices:ds_twitter_statuses_statuses_entities_media_media_indices, media_url:text, media_url_https:text, url:text, display_url:text, expanded_url:text, type:text, sizes:ds_twitter_statuses_statuses_entities_media_media_sizes, source_status_id:long, source_status_id_str:text, source_user_id:int, source_user_id_str:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities_media AS ARRAY OF ds_twitter_statuses_statuses_entities_media_media;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_entities AS REGISTER OF (hashtags:ds_twitter_statuses_statuses_entities_hashtags, symbols:ds_twitter_statuses_statuses_entities_symbols, user_mentions:ds_twitter_statuses_statuses_entities_user_mentions, urls:ds_twitter_statuses_statuses_entities_urls, media:ds_twitter_statuses_statuses_entities_media);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_metadata AS REGISTER OF (iso_language_code:text, result_type:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_user_0_entities_url_urls_urls_indices_indices AS REGISTER OF (field_0:int);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_user_0_entities_url_urls_urls_indices AS ARRAY OF ds_twitter_statuses_statuses_user_0_entities_url_urls_urls_indices_indices;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_user_0_entities_url_urls_urls AS REGISTER OF (url:text, expanded_url:text, display_url:text, indices:ds_twitter_statuses_statuses_user_0_entities_url_urls_urls_indices);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_user_0_entities_url_urls AS ARRAY OF ds_twitter_statuses_statuses_user_0_entities_url_urls_urls;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_user_0_entities_url AS REGISTER OF (urls:ds_twitter_statuses_statuses_user_0_entities_url_urls);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_user_0_entities_description_urls_urls AS REGISTER OF (field_0:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_user_0_entities_description_urls AS ARRAY OF ds_twitter_statuses_statuses_user_0_entities_description_urls_urls;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_user_0_entities_description AS REGISTER OF (urls:ds_twitter_statuses_statuses_user_0_entities_description_urls);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_user_0_entities AS REGISTER OF (url:ds_twitter_statuses_statuses_user_0_entities_url, description:ds_twitter_statuses_statuses_user_0_entities_description);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_user_0 AS REGISTER OF (id:long, id_str:text, name:text, screen_name:text, location:text, description:text, url:text, entities:ds_twitter_statuses_statuses_user_0_entities, protected:text, followers_count:int, friends_count:int, listed_count:int, created_at:text, favourites_count:int, utc_offset:int, time_zone:text, geo_enabled:text, verified:text, statuses_count:int, lang:text, contributors_enabled:text, is_translator:text, is_translation_enabled:text, profile_background_color:text, profile_background_image_url:text, profile_background_image_url_https:text, profile_background_tile:text, profile_image_url:text, profile_image_url_https:text, profile_banner_url:text, profile_link_color:text, profile_sidebar_border_color:text, profile_sidebar_fill_color:text, profile_text_color:text, profile_use_background_image:text, has_extended_profile:text, default_profile:text, default_profile_image:text, following:text, follow_request_sent:text, notifications:text, translator_type:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_hashtags_hashtags_indices_indices AS REGISTER OF (field_0:int);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_hashtags_hashtags_indices AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_entities_hashtags_hashtags_indices_indices;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_hashtags_hashtags AS REGISTER OF (text:text, indices:ds_twitter_statuses_statuses_retweeted_status_entities_hashtags_hashtags_indices);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_hashtags AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_entities_hashtags_hashtags;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_symbols_symbols AS REGISTER OF (field_0:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_symbols AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_entities_symbols_symbols;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_user_mentions_user_mentions_indices_indices AS REGISTER OF (field_0:int);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_user_mentions_user_mentions_indices AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_entities_user_mentions_user_mentions_indices_indices;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_user_mentions_user_mentions AS REGISTER OF (field_0:text, screen_name:text, name:text, id:long, id_str:text, indices:ds_twitter_statuses_statuses_retweeted_status_entities_user_mentions_user_mentions_indices);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_user_mentions AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_entities_user_mentions_user_mentions;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_urls_urls_indices_indices AS REGISTER OF (field_0:int);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_urls_urls_indices AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_entities_urls_urls_indices_indices;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_urls_urls AS REGISTER OF (url:text, expanded_url:text, display_url:text, indices:ds_twitter_statuses_statuses_retweeted_status_entities_urls_urls_indices);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_urls AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_entities_urls_urls;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_media_media_indices_indices AS REGISTER OF (field_0:int);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_media_media_indices AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_entities_media_media_indices_indices;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_media_media_sizes_large AS REGISTER OF (w:int, h:int, resize:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_media_media_sizes_medium AS REGISTER OF (w:int, h:int, resize:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_media_media_sizes_small AS REGISTER OF (w:int, h:int, resize:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_media_media_sizes_thumb AS REGISTER OF (w:int, h:int, resize:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_media_media_sizes AS REGISTER OF (large:ds_twitter_statuses_statuses_retweeted_status_entities_media_media_sizes_large, medium:ds_twitter_statuses_statuses_retweeted_status_entities_media_media_sizes_medium, small:ds_twitter_statuses_statuses_retweeted_status_entities_media_media_sizes_small, thumb:ds_twitter_statuses_statuses_retweeted_status_entities_media_media_sizes_thumb);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_media_media AS REGISTER OF (id:long, id_str:text, indices:ds_twitter_statuses_statuses_retweeted_status_entities_media_media_indices, media_url:text, media_url_https:text, url:text, display_url:text, expanded_url:text, type:text, sizes:ds_twitter_statuses_statuses_retweeted_status_entities_media_media_sizes);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities_media AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_entities_media_media;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_entities AS REGISTER OF (hashtags:ds_twitter_statuses_statuses_retweeted_status_entities_hashtags, symbols:ds_twitter_statuses_statuses_retweeted_status_entities_symbols, user_mentions:ds_twitter_statuses_statuses_retweeted_status_entities_user_mentions, urls:ds_twitter_statuses_statuses_retweeted_status_entities_urls, media:ds_twitter_statuses_statuses_retweeted_status_entities_media);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_metadata AS REGISTER OF (iso_language_code:text, result_type:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_user_0_entities_url_urls_urls_indices_indices AS REGISTER OF (field_0:int);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_user_0_entities_url_urls_urls_indices AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_user_0_entities_url_urls_urls_indices_indices;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_user_0_entities_url_urls_urls AS REGISTER OF (url:text, expanded_url:text, display_url:text, indices:ds_twitter_statuses_statuses_retweeted_status_user_0_entities_url_urls_urls_indices);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_user_0_entities_url_urls AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_user_0_entities_url_urls_urls;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_user_0_entities_url AS REGISTER OF (urls:ds_twitter_statuses_statuses_retweeted_status_user_0_entities_url_urls);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_user_0_entities_description_urls_urls_indices_indices AS REGISTER OF (field_0:int);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_user_0_entities_description_urls_urls_indices AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_user_0_entities_description_urls_urls_indices_indices;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_user_0_entities_description_urls_urls AS REGISTER OF (url:text, expanded_url:text, display_url:text, indices:ds_twitter_statuses_statuses_retweeted_status_user_0_entities_description_urls_urls_indices);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_user_0_entities_description_urls AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_user_0_entities_description_urls_urls;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_user_0_entities_description AS REGISTER OF (urls:ds_twitter_statuses_statuses_retweeted_status_user_0_entities_description_urls);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_user_0_entities AS REGISTER OF (url:ds_twitter_statuses_statuses_retweeted_status_user_0_entities_url, description:ds_twitter_statuses_statuses_retweeted_status_user_0_entities_description);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_user_0 AS REGISTER OF (id:long, id_str:text, name:text, screen_name:text, location:text, description:text, url:text, entities:ds_twitter_statuses_statuses_retweeted_status_user_0_entities, protected:text, followers_count:int, friends_count:int, listed_count:int, created_at:text, favourites_count:int, utc_offset:int, time_zone:text, geo_enabled:text, verified:text, statuses_count:int, lang:text, contributors_enabled:text, is_translator:text, is_translation_enabled:text, profile_background_color:text, profile_background_image_url:text, profile_background_image_url_https:text, profile_background_tile:text, profile_image_url:text, profile_image_url_https:text, profile_banner_url:text, profile_link_color:text, profile_sidebar_border_color:text, profile_sidebar_fill_color:text, profile_text_color:text, profile_use_background_image:text, has_extended_profile:text, default_profile:text, default_profile_image:text, following:text, follow_request_sent:text, notifications:text, translator_type:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_extended_entities_media_media_indices_indices AS REGISTER OF (field_0:int);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_extended_entities_media_media_indices AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_extended_entities_media_media_indices_indices;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_extended_entities_media_media_sizes_large AS REGISTER OF (w:int, h:int, resize:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_extended_entities_media_media_sizes_medium AS REGISTER OF (w:int, h:int, resize:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_extended_entities_media_media_sizes_small AS REGISTER OF (w:int, h:int, resize:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_extended_entities_media_media_sizes_thumb AS REGISTER OF (w:int, h:int, resize:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_extended_entities_media_media_sizes AS REGISTER OF (large:ds_twitter_statuses_statuses_retweeted_status_extended_entities_media_media_sizes_large, medium:ds_twitter_statuses_statuses_retweeted_status_extended_entities_media_media_sizes_medium, small:ds_twitter_statuses_statuses_retweeted_status_extended_entities_media_media_sizes_small, thumb:ds_twitter_statuses_statuses_retweeted_status_extended_entities_media_media_sizes_thumb);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_extended_entities_media_media AS REGISTER OF (id:long, id_str:text, indices:ds_twitter_statuses_statuses_retweeted_status_extended_entities_media_media_indices, media_url:text, media_url_https:text, url:text, display_url:text, expanded_url:text, type:text, sizes:ds_twitter_statuses_statuses_retweeted_status_extended_entities_media_media_sizes);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_extended_entities_media AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_extended_entities_media_media;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_extended_entities AS REGISTER OF (media:ds_twitter_statuses_statuses_retweeted_status_extended_entities_media);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_hashtags_hashtags_indices_ind_0 AS REGISTER OF (field_0:int);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_hashtags_hashtags_indices AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_hashtags_hashtags_indices_ind_0;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_hashtags_hashtags AS REGISTER OF (text:text, indices:ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_hashtags_hashtags_indices);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_hashtags AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_hashtags_hashtags;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_symbols_symbols AS REGISTER OF (field_0:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_symbols AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_symbols_symbols;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_user_mentions_user_mentions AS REGISTER OF (field_0:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_user_mentions AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_user_mentions_user_mentions;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_urls_urls_indices_indices AS REGISTER OF (field_0:int);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_urls_urls_indices AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_urls_urls_indices_indices;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_urls_urls AS REGISTER OF (url:text, expanded_url:text, display_url:text, indices:ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_urls_urls_indices);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_urls AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_urls_urls;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities AS REGISTER OF (hashtags:ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_hashtags, symbols:ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_symbols, user_mentions:ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_user_mentions, urls:ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities_urls);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_metadata AS REGISTER OF (iso_language_code:text, result_type:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0_entities_url_urls_urls_indices__0 AS REGISTER OF (field_0:int);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0_entities_url_urls_urls_indices AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0_entities_url_urls_urls_indices__0;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0_entities_url_urls_urls AS REGISTER OF (url:text, expanded_url:text, display_url:text, indices:ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0_entities_url_urls_urls_indices);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0_entities_url_urls AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0_entities_url_urls_urls;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0_entities_url AS REGISTER OF (urls:ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0_entities_url_urls);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0_entities_description_urls_urls AS REGISTER OF (field_0:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0_entities_description_urls AS ARRAY OF ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0_entities_description_urls_urls;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0_entities_description AS REGISTER OF (urls:ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0_entities_description_urls);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0_entities AS REGISTER OF (url:ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0_entities_url, description:ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0_entities_description);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0 AS REGISTER OF (id:long, id_str:text, name:text, screen_name:text, location:text, description:text, url:text, entities:ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0_entities, protected:text, followers_count:int, friends_count:int, listed_count:int, created_at:text, favourites_count:int, utc_offset:int, time_zone:text, geo_enabled:text, verified:text, statuses_count:int, lang:text, contributors_enabled:text, is_translator:text, is_translation_enabled:text, profile_background_color:text, profile_background_image_url:text, profile_background_image_url_https:text, profile_background_tile:text, profile_image_url:text, profile_image_url_https:text, profile_banner_url:text, profile_link_color:text, profile_sidebar_border_color:text, profile_sidebar_fill_color:text, profile_text_color:text, profile_use_background_image:text, has_extended_profile:text, default_profile:text, default_profile_image:text, following:text, follow_request_sent:text, notifications:text, translator_type:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status_quoted_status AS REGISTER OF (created_at:text, id:long, id_str:text, text:text, truncated:text, entities:ds_twitter_statuses_statuses_retweeted_status_quoted_status_entities, metadata:ds_twitter_statuses_statuses_retweeted_status_quoted_status_metadata, source:text, in_reply_to_status_id:text, in_reply_to_status_id_str:text, in_reply_to_user_id:text, in_reply_to_user_id_str:text, in_reply_to_screen_name:text, user_0:ds_twitter_statuses_statuses_retweeted_status_quoted_status_user_0, geo:text, coordinates:text, place:text, contributors:text, is_quote_status:text, retweet_count:int, favorite_count:int, favorited:text, retweeted:text, possibly_sensitive:text, lang:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_retweeted_status AS REGISTER OF (created_at:text, id:long, id_str:text, text:text, truncated:text, entities:ds_twitter_statuses_statuses_retweeted_status_entities, metadata:ds_twitter_statuses_statuses_retweeted_status_metadata, source:text, in_reply_to_status_id:text, in_reply_to_status_id_str:text, in_reply_to_user_id:text, in_reply_to_user_id_str:text, in_reply_to_screen_name:text, user_0:ds_twitter_statuses_statuses_retweeted_status_user_0, geo:text, coordinates:text, place:text, contributors:text, is_quote_status:text, retweet_count:int, favorite_count:int, favorited:text, retweeted:text, possibly_sensitive:text, lang:text, extended_entities:ds_twitter_statuses_statuses_retweeted_status_extended_entities, quoted_status_id:long, quoted_status_id_str:text, quoted_status:ds_twitter_statuses_statuses_retweeted_status_quoted_status);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_extended_entities_media_media_indices_indices AS REGISTER OF (field_0:int);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_extended_entities_media_media_indices AS ARRAY OF ds_twitter_statuses_statuses_extended_entities_media_media_indices_indices;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_extended_entities_media_media_sizes_large AS REGISTER OF (w:int, h:int, resize:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_extended_entities_media_media_sizes_medium AS REGISTER OF (w:int, h:int, resize:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_extended_entities_media_media_sizes_small AS REGISTER OF (w:int, h:int, resize:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_extended_entities_media_media_sizes_thumb AS REGISTER OF (w:int, h:int, resize:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_extended_entities_media_media_sizes AS REGISTER OF (large:ds_twitter_statuses_statuses_extended_entities_media_media_sizes_large, medium:ds_twitter_statuses_statuses_extended_entities_media_media_sizes_medium, small:ds_twitter_statuses_statuses_extended_entities_media_media_sizes_small, thumb:ds_twitter_statuses_statuses_extended_entities_media_media_sizes_thumb);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_extended_entities_media_media AS REGISTER OF (id:long, id_str:text, indices:ds_twitter_statuses_statuses_extended_entities_media_media_indices, media_url:text, media_url_https:text, url:text, display_url:text, expanded_url:text, type:text, sizes:ds_twitter_statuses_statuses_extended_entities_media_media_sizes, source_status_id:long, source_status_id_str:text, source_user_id:int, source_user_id_str:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_extended_entities_media AS ARRAY OF ds_twitter_statuses_statuses_extended_entities_media_media;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_extended_entities AS REGISTER OF (media:ds_twitter_statuses_statuses_extended_entities_media);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_geo_coordinates_coordinates AS REGISTER OF (field_0:double);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_geo_coordinates AS ARRAY OF ds_twitter_statuses_statuses_geo_coordinates_coordinates;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_geo AS REGISTER OF (type:text, coordinates:ds_twitter_statuses_statuses_geo_coordinates);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_coordinates_coordinates_coordinates AS REGISTER OF (field_0:double);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_coordinates_coordinates AS ARRAY OF ds_twitter_statuses_statuses_coordinates_coordinates_coordinates;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_coordinates AS REGISTER OF (type:text, coordinates:ds_twitter_statuses_statuses_coordinates_coordinates);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_place_contained_within_contained_within AS REGISTER OF (field_0:text);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_place_contained_within AS ARRAY OF ds_twitter_statuses_statuses_place_contained_within_contained_within;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_place_bounding_box_coordinates_coordinates_coordinates_coordinates_co_1 AS REGISTER OF (field_0:double);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_place_bounding_box_coordinates_coordinates_coordinates_coordinates_co_0 AS ARRAY OF ds_twitter_statuses_statuses_place_bounding_box_coordinates_coordinates_coordinates_coordinates_co_1;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_place_bounding_box_coordinates_coordinates_coordinates_coordinates AS REGISTER OF (coordinates:ds_twitter_statuses_statuses_place_bounding_box_coordinates_coordinates_coordinates_coordinates_co_0);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_place_bounding_box_coordinates_coordinates_coordinates AS ARRAY OF ds_twitter_statuses_statuses_place_bounding_box_coordinates_coordinates_coordinates_coordinates;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_place_bounding_box_coordinates_coordinates AS REGISTER OF (coordinates:ds_twitter_statuses_statuses_place_bounding_box_coordinates_coordinates_coordinates);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_place_bounding_box_coordinates AS ARRAY OF ds_twitter_statuses_statuses_place_bounding_box_coordinates_coordinates;
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_place_bounding_box AS REGISTER OF (type:text, coordinates:ds_twitter_statuses_statuses_place_bounding_box_coordinates);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses_place AS REGISTER OF (id:text, url:text, place_type:text, name:text, full_name:text, country_code:text, country:text, contained_within:ds_twitter_statuses_statuses_place_contained_within, bounding_box:ds_twitter_statuses_statuses_place_bounding_box);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses_statuses AS REGISTER OF (created_at:text, id:long, id_str:text, text:text, truncated:text, entities:ds_twitter_statuses_statuses_entities, metadata:ds_twitter_statuses_statuses_metadata, source:text, in_reply_to_status_id:text, in_reply_to_status_id_str:text, in_reply_to_user_id:text, in_reply_to_user_id_str:text, in_reply_to_screen_name:text, user_0:ds_twitter_statuses_statuses_user_0, contributors:text, is_quote_status:text, retweet_count:int, favorite_count:int, favorited:text, retweeted:text, possibly_sensitive:text, lang:text, retweeted_status:ds_twitter_statuses_statuses_retweeted_status, extended_entities:ds_twitter_statuses_statuses_extended_entities, quoted_status_id:long, quoted_status_id_str:text, geo:ds_twitter_statuses_statuses_geo, coordinates:ds_twitter_statuses_statuses_coordinates, place:ds_twitter_statuses_statuses_place);
+
+CREATE OR REPLACE TYPE ds_twitter_statuses AS ARRAY OF ds_twitter_statuses_statuses;
+
+CREATE OR REPLACE TYPE ds_twitter_search_metadata AS REGISTER OF (completed_in:double, max_id:long, max_id_str:text, next_results:text, query:text, refresh_url:text, count:int, since_id:int, since_id_str:text);
+
+CREATE OR REPLACE TABLE bv_twitter I18N de (
+        pagesize:text (defaultvalue = '20'), 
+        query:text (defaultvalue = 'Denodo'), 
+        statuses:ds_twitter_statuses, 
+        search_metadata:ds_twitter_search_metadata
+    )
+    FOLDER = '/02 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_twitter(
+        I18N de
+        CONSTRAINTS (
+             ADD pagesize (=) OBL ONE
+             ADD query (=) OBL ONE
+             ADD statuses NOS ZERO ()
+             ADD statuses NOS ZERO ()
+             ADD statuses.created_at NOS ZERO ()
+             ADD statuses.id NOS ZERO ()
+             ADD statuses.id_str NOS ZERO ()
+             ADD statuses.text NOS ZERO ()
+             ADD statuses.truncated NOS ZERO ()
+             ADD statuses.entities NOS ZERO ()
+             ADD statuses.entities.hashtags NOS ZERO ()
+             ADD statuses.entities.hashtags NOS ZERO ()
+             ADD statuses.entities.hashtags.text NOS ZERO ()
+             ADD statuses.entities.hashtags.indices NOS ZERO ()
+             ADD statuses.entities.hashtags.indices NOS ZERO ()
+             ADD statuses.entities.hashtags.indices.field_0 NOS ZERO ()
+             ADD statuses.entities.symbols NOS ZERO ()
+             ADD statuses.entities.symbols NOS ZERO ()
+             ADD statuses.entities.symbols.field_0 NOS ZERO ()
+             ADD statuses.entities.user_mentions NOS ZERO ()
+             ADD statuses.entities.user_mentions NOS ZERO ()
+             ADD statuses.entities.user_mentions.field_0 NOS ZERO ()
+             ADD statuses.entities.user_mentions.screen_name NOS ZERO ()
+             ADD statuses.entities.user_mentions.name NOS ZERO ()
+             ADD statuses.entities.user_mentions.id NOS ZERO ()
+             ADD statuses.entities.user_mentions.id_str NOS ZERO ()
+             ADD statuses.entities.user_mentions.indices NOS ZERO ()
+             ADD statuses.entities.user_mentions.indices NOS ZERO ()
+             ADD statuses.entities.user_mentions.indices.field_0 NOS ZERO ()
+             ADD statuses.entities.urls NOS ZERO ()
+             ADD statuses.entities.urls NOS ZERO ()
+             ADD statuses.entities.urls.url NOS ZERO ()
+             ADD statuses.entities.urls.expanded_url NOS ZERO ()
+             ADD statuses.entities.urls.display_url NOS ZERO ()
+             ADD statuses.entities.urls.indices NOS ZERO ()
+             ADD statuses.entities.urls.indices NOS ZERO ()
+             ADD statuses.entities.urls.indices.field_0 NOS ZERO ()
+             ADD statuses.entities.media NOS ZERO ()
+             ADD statuses.entities.media NOS ZERO ()
+             ADD statuses.entities.media.id NOS ZERO ()
+             ADD statuses.entities.media.id_str NOS ZERO ()
+             ADD statuses.entities.media.indices NOS ZERO ()
+             ADD statuses.entities.media.indices NOS ZERO ()
+             ADD statuses.entities.media.indices.field_0 NOS ZERO ()
+             ADD statuses.entities.media.media_url NOS ZERO ()
+             ADD statuses.entities.media.media_url_https NOS ZERO ()
+             ADD statuses.entities.media.url NOS ZERO ()
+             ADD statuses.entities.media.display_url NOS ZERO ()
+             ADD statuses.entities.media.expanded_url NOS ZERO ()
+             ADD statuses.entities.media.type NOS ZERO ()
+             ADD statuses.entities.media.sizes NOS ZERO ()
+             ADD statuses.entities.media.sizes.large NOS ZERO ()
+             ADD statuses.entities.media.sizes.large.w NOS ZERO ()
+             ADD statuses.entities.media.sizes.large.h NOS ZERO ()
+             ADD statuses.entities.media.sizes.large.resize NOS ZERO ()
+             ADD statuses.entities.media.sizes.medium NOS ZERO ()
+             ADD statuses.entities.media.sizes.medium.w NOS ZERO ()
+             ADD statuses.entities.media.sizes.medium.h NOS ZERO ()
+             ADD statuses.entities.media.sizes.medium.resize NOS ZERO ()
+             ADD statuses.entities.media.sizes.small NOS ZERO ()
+             ADD statuses.entities.media.sizes.small.w NOS ZERO ()
+             ADD statuses.entities.media.sizes.small.h NOS ZERO ()
+             ADD statuses.entities.media.sizes.small.resize NOS ZERO ()
+             ADD statuses.entities.media.sizes.thumb NOS ZERO ()
+             ADD statuses.entities.media.sizes.thumb.w NOS ZERO ()
+             ADD statuses.entities.media.sizes.thumb.h NOS ZERO ()
+             ADD statuses.entities.media.sizes.thumb.resize NOS ZERO ()
+             ADD statuses.entities.media.source_status_id NOS ZERO ()
+             ADD statuses.entities.media.source_status_id_str NOS ZERO ()
+             ADD statuses.entities.media.source_user_id NOS ZERO ()
+             ADD statuses.entities.media.source_user_id_str NOS ZERO ()
+             ADD statuses.metadata NOS ZERO ()
+             ADD statuses.metadata.iso_language_code NOS ZERO ()
+             ADD statuses.metadata.result_type NOS ZERO ()
+             ADD statuses.source NOS ZERO ()
+             ADD statuses.in_reply_to_status_id NOS ZERO ()
+             ADD statuses.in_reply_to_status_id_str NOS ZERO ()
+             ADD statuses.in_reply_to_user_id NOS ZERO ()
+             ADD statuses.in_reply_to_user_id_str NOS ZERO ()
+             ADD statuses.in_reply_to_screen_name NOS ZERO ()
+             ADD statuses.user_0 NOS ZERO ()
+             ADD statuses.user_0.id NOS ZERO ()
+             ADD statuses.user_0.id_str NOS ZERO ()
+             ADD statuses.user_0.name NOS ZERO ()
+             ADD statuses.user_0.screen_name NOS ZERO ()
+             ADD statuses.user_0.location NOS ZERO ()
+             ADD statuses.user_0.description NOS ZERO ()
+             ADD statuses.user_0.url NOS ZERO ()
+             ADD statuses.user_0.entities NOS ZERO ()
+             ADD statuses.user_0.entities.url NOS ZERO ()
+             ADD statuses.user_0.entities.url.urls NOS ZERO ()
+             ADD statuses.user_0.entities.url.urls NOS ZERO ()
+             ADD statuses.user_0.entities.url.urls.url NOS ZERO ()
+             ADD statuses.user_0.entities.url.urls.expanded_url NOS ZERO ()
+             ADD statuses.user_0.entities.url.urls.display_url NOS ZERO ()
+             ADD statuses.user_0.entities.url.urls.indices NOS ZERO ()
+             ADD statuses.user_0.entities.url.urls.indices NOS ZERO ()
+             ADD statuses.user_0.entities.url.urls.indices.field_0 NOS ZERO ()
+             ADD statuses.user_0.entities.description NOS ZERO ()
+             ADD statuses.user_0.entities.description.urls NOS ZERO ()
+             ADD statuses.user_0.entities.description.urls NOS ZERO ()
+             ADD statuses.user_0.entities.description.urls.field_0 NOS ZERO ()
+             ADD statuses.user_0.protected NOS ZERO ()
+             ADD statuses.user_0.followers_count NOS ZERO ()
+             ADD statuses.user_0.friends_count NOS ZERO ()
+             ADD statuses.user_0.listed_count NOS ZERO ()
+             ADD statuses.user_0.created_at NOS ZERO ()
+             ADD statuses.user_0.favourites_count NOS ZERO ()
+             ADD statuses.user_0.utc_offset NOS ZERO ()
+             ADD statuses.user_0.time_zone NOS ZERO ()
+             ADD statuses.user_0.geo_enabled NOS ZERO ()
+             ADD statuses.user_0.verified NOS ZERO ()
+             ADD statuses.user_0.statuses_count NOS ZERO ()
+             ADD statuses.user_0.lang NOS ZERO ()
+             ADD statuses.user_0.contributors_enabled NOS ZERO ()
+             ADD statuses.user_0.is_translator NOS ZERO ()
+             ADD statuses.user_0.is_translation_enabled NOS ZERO ()
+             ADD statuses.user_0.profile_background_color NOS ZERO ()
+             ADD statuses.user_0.profile_background_image_url NOS ZERO ()
+             ADD statuses.user_0.profile_background_image_url_https NOS ZERO ()
+             ADD statuses.user_0.profile_background_tile NOS ZERO ()
+             ADD statuses.user_0.profile_image_url NOS ZERO ()
+             ADD statuses.user_0.profile_image_url_https NOS ZERO ()
+             ADD statuses.user_0.profile_banner_url NOS ZERO ()
+             ADD statuses.user_0.profile_link_color NOS ZERO ()
+             ADD statuses.user_0.profile_sidebar_border_color NOS ZERO ()
+             ADD statuses.user_0.profile_sidebar_fill_color NOS ZERO ()
+             ADD statuses.user_0.profile_text_color NOS ZERO ()
+             ADD statuses.user_0.profile_use_background_image NOS ZERO ()
+             ADD statuses.user_0.has_extended_profile NOS ZERO ()
+             ADD statuses.user_0.default_profile NOS ZERO ()
+             ADD statuses.user_0.default_profile_image NOS ZERO ()
+             ADD statuses.user_0.following NOS ZERO ()
+             ADD statuses.user_0.follow_request_sent NOS ZERO ()
+             ADD statuses.user_0.notifications NOS ZERO ()
+             ADD statuses.user_0.translator_type NOS ZERO ()
+             ADD statuses.contributors NOS ZERO ()
+             ADD statuses.is_quote_status NOS ZERO ()
+             ADD statuses.retweet_count NOS ZERO ()
+             ADD statuses.favorite_count NOS ZERO ()
+             ADD statuses.favorited NOS ZERO ()
+             ADD statuses.retweeted NOS ZERO ()
+             ADD statuses.possibly_sensitive NOS ZERO ()
+             ADD statuses.lang NOS ZERO ()
+             ADD statuses.retweeted_status NOS ZERO ()
+             ADD statuses.retweeted_status.created_at NOS ZERO ()
+             ADD statuses.retweeted_status.id NOS ZERO ()
+             ADD statuses.retweeted_status.id_str NOS ZERO ()
+             ADD statuses.retweeted_status.text NOS ZERO ()
+             ADD statuses.retweeted_status.truncated NOS ZERO ()
+             ADD statuses.retweeted_status.entities NOS ZERO ()
+             ADD statuses.retweeted_status.entities.hashtags NOS ZERO ()
+             ADD statuses.retweeted_status.entities.hashtags NOS ZERO ()
+             ADD statuses.retweeted_status.entities.hashtags.text NOS ZERO ()
+             ADD statuses.retweeted_status.entities.hashtags.indices NOS ZERO ()
+             ADD statuses.retweeted_status.entities.hashtags.indices NOS ZERO ()
+             ADD statuses.retweeted_status.entities.hashtags.indices.field_0 NOS ZERO ()
+             ADD statuses.retweeted_status.entities.symbols NOS ZERO ()
+             ADD statuses.retweeted_status.entities.symbols NOS ZERO ()
+             ADD statuses.retweeted_status.entities.symbols.field_0 NOS ZERO ()
+             ADD statuses.retweeted_status.entities.user_mentions NOS ZERO ()
+             ADD statuses.retweeted_status.entities.user_mentions NOS ZERO ()
+             ADD statuses.retweeted_status.entities.user_mentions.field_0 NOS ZERO ()
+             ADD statuses.retweeted_status.entities.user_mentions.screen_name NOS ZERO ()
+             ADD statuses.retweeted_status.entities.user_mentions.name NOS ZERO ()
+             ADD statuses.retweeted_status.entities.user_mentions.id NOS ZERO ()
+             ADD statuses.retweeted_status.entities.user_mentions.id_str NOS ZERO ()
+             ADD statuses.retweeted_status.entities.user_mentions.indices NOS ZERO ()
+             ADD statuses.retweeted_status.entities.user_mentions.indices NOS ZERO ()
+             ADD statuses.retweeted_status.entities.user_mentions.indices.field_0 NOS ZERO ()
+             ADD statuses.retweeted_status.entities.urls NOS ZERO ()
+             ADD statuses.retweeted_status.entities.urls NOS ZERO ()
+             ADD statuses.retweeted_status.entities.urls.url NOS ZERO ()
+             ADD statuses.retweeted_status.entities.urls.expanded_url NOS ZERO ()
+             ADD statuses.retweeted_status.entities.urls.display_url NOS ZERO ()
+             ADD statuses.retweeted_status.entities.urls.indices NOS ZERO ()
+             ADD statuses.retweeted_status.entities.urls.indices NOS ZERO ()
+             ADD statuses.retweeted_status.entities.urls.indices.field_0 NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.id NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.id_str NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.indices NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.indices NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.indices.field_0 NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.media_url NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.media_url_https NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.url NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.display_url NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.expanded_url NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.type NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.sizes NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.sizes.large NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.sizes.large.w NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.sizes.large.h NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.sizes.large.resize NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.sizes.medium NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.sizes.medium.w NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.sizes.medium.h NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.sizes.medium.resize NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.sizes.small NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.sizes.small.w NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.sizes.small.h NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.sizes.small.resize NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.sizes.thumb NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.sizes.thumb.w NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.sizes.thumb.h NOS ZERO ()
+             ADD statuses.retweeted_status.entities.media.sizes.thumb.resize NOS ZERO ()
+             ADD statuses.retweeted_status.metadata NOS ZERO ()
+             ADD statuses.retweeted_status.metadata.iso_language_code NOS ZERO ()
+             ADD statuses.retweeted_status.metadata.result_type NOS ZERO ()
+             ADD statuses.retweeted_status.source NOS ZERO ()
+             ADD statuses.retweeted_status.in_reply_to_status_id NOS ZERO ()
+             ADD statuses.retweeted_status.in_reply_to_status_id_str NOS ZERO ()
+             ADD statuses.retweeted_status.in_reply_to_user_id NOS ZERO ()
+             ADD statuses.retweeted_status.in_reply_to_user_id_str NOS ZERO ()
+             ADD statuses.retweeted_status.in_reply_to_screen_name NOS ZERO ()
+             ADD statuses.retweeted_status.user_0 NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.id NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.id_str NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.name NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.screen_name NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.location NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.description NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.url NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities.url NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities.url.urls NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities.url.urls NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities.url.urls.url NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities.url.urls.expanded_url NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities.url.urls.display_url NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities.url.urls.indices NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities.url.urls.indices NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities.url.urls.indices.field_0 NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities.description NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities.description.urls NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities.description.urls NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities.description.urls.url NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities.description.urls.expanded_url NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities.description.urls.display_url NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities.description.urls.indices NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities.description.urls.indices NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.entities.description.urls.indices.field_0 NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.protected NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.followers_count NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.friends_count NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.listed_count NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.created_at NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.favourites_count NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.utc_offset NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.time_zone NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.geo_enabled NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.verified NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.statuses_count NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.lang NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.contributors_enabled NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.is_translator NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.is_translation_enabled NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.profile_background_color NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.profile_background_image_url NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.profile_background_image_url_https NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.profile_background_tile NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.profile_image_url NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.profile_image_url_https NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.profile_banner_url NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.profile_link_color NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.profile_sidebar_border_color NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.profile_sidebar_fill_color NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.profile_text_color NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.profile_use_background_image NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.has_extended_profile NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.default_profile NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.default_profile_image NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.following NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.follow_request_sent NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.notifications NOS ZERO ()
+             ADD statuses.retweeted_status.user_0.translator_type NOS ZERO ()
+             ADD statuses.retweeted_status.geo NOS ZERO ()
+             ADD statuses.retweeted_status.coordinates NOS ZERO ()
+             ADD statuses.retweeted_status.place NOS ZERO ()
+             ADD statuses.retweeted_status.contributors NOS ZERO ()
+             ADD statuses.retweeted_status.is_quote_status NOS ZERO ()
+             ADD statuses.retweeted_status.retweet_count NOS ZERO ()
+             ADD statuses.retweeted_status.favorite_count NOS ZERO ()
+             ADD statuses.retweeted_status.favorited NOS ZERO ()
+             ADD statuses.retweeted_status.retweeted NOS ZERO ()
+             ADD statuses.retweeted_status.possibly_sensitive NOS ZERO ()
+             ADD statuses.retweeted_status.lang NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.id NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.id_str NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.indices NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.indices NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.indices.field_0 NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.media_url NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.media_url_https NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.url NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.display_url NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.expanded_url NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.type NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.sizes NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.sizes.large NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.sizes.large.w NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.sizes.large.h NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.sizes.large.resize NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.sizes.medium NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.sizes.medium.w NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.sizes.medium.h NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.sizes.medium.resize NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.sizes.small NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.sizes.small.w NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.sizes.small.h NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.sizes.small.resize NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.sizes.thumb NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.sizes.thumb.w NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.sizes.thumb.h NOS ZERO ()
+             ADD statuses.retweeted_status.extended_entities.media.sizes.thumb.resize NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status_id NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status_id_str NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.created_at NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.id NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.id_str NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.text NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.truncated NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.hashtags NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.hashtags NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.hashtags.text NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.hashtags.indices NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.hashtags.indices NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.hashtags.indices.field_0 NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.symbols NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.symbols NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.symbols.field_0 NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.user_mentions NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.user_mentions NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.user_mentions.field_0 NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.urls NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.urls NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.urls.url NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.urls.expanded_url NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.urls.display_url NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.urls.indices NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.urls.indices NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.entities.urls.indices.field_0 NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.metadata NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.metadata.iso_language_code NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.metadata.result_type NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.source NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.in_reply_to_status_id NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.in_reply_to_status_id_str NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.in_reply_to_user_id NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.in_reply_to_user_id_str NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.in_reply_to_screen_name NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0 NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.id NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.id_str NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.name NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.screen_name NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.location NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.description NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.url NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.entities NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.entities.url NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.entities.url.urls NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.entities.url.urls NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.entities.url.urls.url NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.entities.url.urls.expanded_url NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.entities.url.urls.display_url NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.entities.url.urls.indices NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.entities.url.urls.indices NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.entities.url.urls.indices.field_0 NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.entities.description NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.entities.description.urls NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.entities.description.urls NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.entities.description.urls.field_0 NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.protected NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.followers_count NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.friends_count NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.listed_count NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.created_at NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.favourites_count NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.utc_offset NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.time_zone NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.geo_enabled NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.verified NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.statuses_count NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.lang NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.contributors_enabled NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.is_translator NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.is_translation_enabled NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.profile_background_color NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.profile_background_image_url NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.profile_background_image_url_https NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.profile_background_tile NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.profile_image_url NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.profile_image_url_https NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.profile_banner_url NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.profile_link_color NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.profile_sidebar_border_color NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.profile_sidebar_fill_color NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.profile_text_color NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.profile_use_background_image NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.has_extended_profile NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.default_profile NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.default_profile_image NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.following NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.follow_request_sent NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.notifications NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.user_0.translator_type NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.geo NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.coordinates NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.place NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.contributors NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.is_quote_status NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.retweet_count NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.favorite_count NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.favorited NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.retweeted NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.possibly_sensitive NOS ZERO ()
+             ADD statuses.retweeted_status.quoted_status.lang NOS ZERO ()
+             ADD statuses.extended_entities NOS ZERO ()
+             ADD statuses.extended_entities.media NOS ZERO ()
+             ADD statuses.extended_entities.media NOS ZERO ()
+             ADD statuses.extended_entities.media.id NOS ZERO ()
+             ADD statuses.extended_entities.media.id_str NOS ZERO ()
+             ADD statuses.extended_entities.media.indices NOS ZERO ()
+             ADD statuses.extended_entities.media.indices NOS ZERO ()
+             ADD statuses.extended_entities.media.indices.field_0 NOS ZERO ()
+             ADD statuses.extended_entities.media.media_url NOS ZERO ()
+             ADD statuses.extended_entities.media.media_url_https NOS ZERO ()
+             ADD statuses.extended_entities.media.url NOS ZERO ()
+             ADD statuses.extended_entities.media.display_url NOS ZERO ()
+             ADD statuses.extended_entities.media.expanded_url NOS ZERO ()
+             ADD statuses.extended_entities.media.type NOS ZERO ()
+             ADD statuses.extended_entities.media.sizes NOS ZERO ()
+             ADD statuses.extended_entities.media.sizes.large NOS ZERO ()
+             ADD statuses.extended_entities.media.sizes.large.w NOS ZERO ()
+             ADD statuses.extended_entities.media.sizes.large.h NOS ZERO ()
+             ADD statuses.extended_entities.media.sizes.large.resize NOS ZERO ()
+             ADD statuses.extended_entities.media.sizes.medium NOS ZERO ()
+             ADD statuses.extended_entities.media.sizes.medium.w NOS ZERO ()
+             ADD statuses.extended_entities.media.sizes.medium.h NOS ZERO ()
+             ADD statuses.extended_entities.media.sizes.medium.resize NOS ZERO ()
+             ADD statuses.extended_entities.media.sizes.small NOS ZERO ()
+             ADD statuses.extended_entities.media.sizes.small.w NOS ZERO ()
+             ADD statuses.extended_entities.media.sizes.small.h NOS ZERO ()
+             ADD statuses.extended_entities.media.sizes.small.resize NOS ZERO ()
+             ADD statuses.extended_entities.media.sizes.thumb NOS ZERO ()
+             ADD statuses.extended_entities.media.sizes.thumb.w NOS ZERO ()
+             ADD statuses.extended_entities.media.sizes.thumb.h NOS ZERO ()
+             ADD statuses.extended_entities.media.sizes.thumb.resize NOS ZERO ()
+             ADD statuses.extended_entities.media.source_status_id NOS ZERO ()
+             ADD statuses.extended_entities.media.source_status_id_str NOS ZERO ()
+             ADD statuses.extended_entities.media.source_user_id NOS ZERO ()
+             ADD statuses.extended_entities.media.source_user_id_str NOS ZERO ()
+             ADD statuses.quoted_status_id NOS ZERO ()
+             ADD statuses.quoted_status_id_str NOS ZERO ()
+             ADD statuses.geo NOS ZERO ()
+             ADD statuses.geo.type NOS ZERO ()
+             ADD statuses.geo.coordinates NOS ZERO ()
+             ADD statuses.geo.coordinates NOS ZERO ()
+             ADD statuses.geo.coordinates.field_0 NOS ZERO ()
+             ADD statuses.coordinates NOS ZERO ()
+             ADD statuses.coordinates.type NOS ZERO ()
+             ADD statuses.coordinates.coordinates NOS ZERO ()
+             ADD statuses.coordinates.coordinates NOS ZERO ()
+             ADD statuses.coordinates.coordinates.field_0 NOS ZERO ()
+             ADD statuses.place NOS ZERO ()
+             ADD statuses.place.id NOS ZERO ()
+             ADD statuses.place.url NOS ZERO ()
+             ADD statuses.place.place_type NOS ZERO ()
+             ADD statuses.place.name NOS ZERO ()
+             ADD statuses.place.full_name NOS ZERO ()
+             ADD statuses.place.country_code NOS ZERO ()
+             ADD statuses.place.country NOS ZERO ()
+             ADD statuses.place.contained_within NOS ZERO ()
+             ADD statuses.place.contained_within NOS ZERO ()
+             ADD statuses.place.contained_within.field_0 NOS ZERO ()
+             ADD statuses.place.bounding_box NOS ZERO ()
+             ADD statuses.place.bounding_box.type NOS ZERO ()
+             ADD statuses.place.bounding_box.coordinates NOS ZERO ()
+             ADD statuses.place.bounding_box.coordinates NOS ZERO ()
+             ADD statuses.place.bounding_box.coordinates.coordinates NOS ZERO ()
+             ADD statuses.place.bounding_box.coordinates.coordinates NOS ZERO ()
+             ADD statuses.place.bounding_box.coordinates.coordinates.coordinates NOS ZERO ()
+             ADD statuses.place.bounding_box.coordinates.coordinates.coordinates NOS ZERO ()
+             ADD statuses.place.bounding_box.coordinates.coordinates.coordinates.field_0 NOS ZERO ()
+             ADD search_metadata NOS ZERO ()
+             ADD search_metadata.completed_in NOS ZERO ()
+             ADD search_metadata.max_id NOS ZERO ()
+             ADD search_metadata.max_id_str NOS ZERO ()
+             ADD search_metadata.next_results NOS ZERO ()
+             ADD search_metadata.query NOS ZERO ()
+             ADD search_metadata.refresh_url NOS ZERO ()
+             ADD search_metadata.count NOS ZERO ()
+             ADD search_metadata.since_id NOS ZERO ()
+             ADD search_metadata.since_id_str NOS ZERO ()
+        )
+        OUTPUTLIST (search_metadata, statuses
+        )
+        WRAPPER (json ds_twitter)
+    );
+

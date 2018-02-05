@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW dv_total_sales_by_item_category FOLDER = '/03 - derived views' AS SELECT bv_ldw_item_mysql.i_category_id AS i_category_id, bv_ldw_item_mysql.i_category AS i_category, sum(bv_ldw_store_sales_oracle.ss_sales_price) AS sum_agg FROM bv_ldw_item_mysql AS bv_ldw_item_mysql INNER JOIN bv_ldw_store_sales_oracle AS bv_ldw_store_sales_oracle ON bv_ldw_item_mysql.i_item_sk = bv_ldw_store_sales_oracle.ss_item_sk  GROUP BY bv_ldw_item_mysql.i_category, bv_ldw_item_mysql.i_category_id CONTEXT ('I18N' = 'us_pst');
+
+ALTER VIEW dv_total_sales_by_item_category
+ LAYOUT (bv_ldw_item_mysql = [20, 50, 200, 225], bv_ldw_store_sales_oracle = [559, 217, 200, 225]);
+

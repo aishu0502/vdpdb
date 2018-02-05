@@ -1,0 +1,2 @@
+﻿CREATE OR REPLACE VIEW bv_join_view AS SELECT ora.c_customer_sk, denodo_training.bv_books.id AS id FROM bv_ldw_customer_oracle AS ora, denodo_training.bv_books WHERE denodo_training.bv_books.id = '001' CONTEXT ('I18N' = 'de');
+

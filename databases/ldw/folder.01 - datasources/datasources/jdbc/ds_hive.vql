@@ -1,0 +1,28 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JDBC ds_hive
+    FOLDER = '/01 - datasources'
+    DRIVERCLASSNAME = 'com.ibm.spss.hive.serde2.xml.XmlSerDe'
+    DATABASEURI = '${databases.ldw.folder.01 - datasources.datasources.jdbc.ds_hive.DATABASEURI}'
+    USERNAME = '${databases.ldw.folder.01 - datasources.datasources.jdbc.ds_hive.USERNAME}'
+    USERPASSWORD = '${databases.ldw.folder.01 - datasources.datasources.jdbc.ds_hive.USERPASSWORD}' ${databases.ldw.folder.01 - datasources.datasources.jdbc.ds_hive.USERPASSWORD.ENCRYPTED}
+    CLASSPATH = 'C:\Denodo-6.0\extensions\thirdparty\lib\hivexmlserde-1.0.5.3.jar'
+    DATABASENAME = 'hive'
+    DATABASEVERSION = '2_0_0'
+    FETCHSIZE = 1000
+    BATCHINSERTSIZE = 200
+    VALIDATIONQUERY = ''
+    INITIALSIZE = 4
+    MAXIDLE = -1
+    MINIDLE = 0
+    MAXACTIVE = 20
+    EXHAUSTEDACTION = 1
+    TESTONBORROW = true
+    TESTONRETURN = false
+    TESTWHILEIDLE = false
+    TIMEBETWEENEVICTION = -1
+    NUMTESTPEREVICTION = 3
+    MINEVICTABLETIME = 1800000
+    POOLPREPAREDSTATEMENTS = false
+    MAXSLEEPINGPS = 4
+    INITIALCAPACITYPS = 8;
+

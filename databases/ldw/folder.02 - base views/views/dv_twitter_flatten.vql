@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW dv_twitter_flatten FOLDER = '/02 - base views' AS SELECT pagesize, query, search_metadata, created_at, id, id_str, text, truncated, entities, metadata, source, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user_0, contributors, is_quote_status, retweet_count, favorite_count, favorited, retweeted, possibly_sensitive, lang, retweeted_status, extended_entities, quoted_status_id, quoted_status_id_str, geo, coordinates, place FROM FLATTEN bv_twitter AS v ( v.statuses) CONTEXT ('I18N' = 'au_cst');
+
+ALTER VIEW dv_twitter_flatten
+ LAYOUT (bv_twitter = [20, 20, 489, 609]);
+

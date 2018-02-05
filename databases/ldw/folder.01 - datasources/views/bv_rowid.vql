@@ -1,0 +1,27 @@
+﻿CREATE OR REPLACE WRAPPER JDBC bv_rowid
+    FOLDER = '/01 - datasources'
+    DATASOURCENAME=ds_oracle
+    SQLSENTENCE='select rowid, c_first_name from ldw_customer'   
+    OUTPUTSCHEMA (
+        rowid = 'ROWID' :'java.lang.String' (sourcetypename='ROWID', sourcetypeid='-8', sourcetypedecimals='0', sourcetypesize='0')  NOT NULL NOT SORTABLE NOT UPDATEABLE,
+        c_first_name = 'C_FIRST_NAME' :'java.lang.String' (sourcetypename='CHAR', sourcetypeid='1', sourcetypedecimals='0', sourcetypesize='20')  SORTABLE NOT UPDATEABLE
+    );
+
+CREATE OR REPLACE TABLE bv_rowid I18N au_cst (
+        rowid:text, 
+        c_first_name:text (sourcetypedecimals = '0', sourcetypesize = '20', sourcetypeid = '1')
+    )
+    FOLDER = '/01 - datasources'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_rowid(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD rowid NOS ZERO ()
+             ADD c_first_name NOS ZERO ()
+        )
+        OUTPUTLIST (c_first_name, rowid
+        )
+        WRAPPER (jdbc bv_rowid)
+    );
+

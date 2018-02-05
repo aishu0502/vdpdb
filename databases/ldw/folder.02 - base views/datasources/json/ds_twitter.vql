@@ -1,0 +1,13 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JSON ds_twitter
+    FOLDER = '/02 - base views'
+    ROUTE HTTP 'http.CommonsHttpClientConnection,120000' GET '${databases.ldw.folder.02 - base views.datasources.json.ds_twitter.ROUTE.HTTP.URL}'
+    AUTHENTICATION OAUTH10A ( 
+      CLIENTIDENTIFIER = '${databases.ldw.folder.02 - base views.datasources.json.ds_twitter.ROUTE.HTTP.CLIENTIDENTIFIER}'
+      CLIENTSHAREDSECRET = '${databases.ldw.folder.02 - base views.datasources.json.ds_twitter.ROUTE.HTTP.CLIENTSHAREDSECRET}' ${databases.ldw.folder.02 - base views.datasources.json.ds_twitter.ROUTE.HTTP.CLIENTSHAREDSECRET.ENCRYPTED}
+      ACCESSTOKEN = '${databases.ldw.folder.02 - base views.datasources.json.ds_twitter.ROUTE.HTTP.ACCESSTOKEN}' ${databases.ldw.folder.02 - base views.datasources.json.ds_twitter.ROUTE.HTTP.ACCESSTOKEN.ENCRYPTED}
+      ACCESSTOKENSECRET = '${databases.ldw.folder.02 - base views.datasources.json.ds_twitter.ROUTE.HTTP.ACCESSTOKENSECRET}' ${databases.ldw.folder.02 - base views.datasources.json.ds_twitter.ROUTE.HTTP.ACCESSTOKENSECRET.ENCRYPTED}
+      SIGNATUREMETHOD = ${databases.ldw.folder.02 - base views.datasources.json.ds_twitter.ROUTE.HTTP.SIGNATUREMETHOD}
+    )
+    PROXY OFF;
+

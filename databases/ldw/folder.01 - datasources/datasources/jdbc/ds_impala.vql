@@ -1,0 +1,40 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JDBC ds_impala
+    FOLDER = '/01 - datasources'
+    DRIVERCLASSNAME = 'com.cloudera.impala.jdbc4.Driver'
+    DATABASEURI = '${databases.ldw.folder.01 - datasources.datasources.jdbc.ds_impala.DATABASEURI}'
+    USERNAME = '${databases.ldw.folder.01 - datasources.datasources.jdbc.ds_impala.USERNAME}'
+    USERPASSWORD = '${databases.ldw.folder.01 - datasources.datasources.jdbc.ds_impala.USERPASSWORD}' ${databases.ldw.folder.01 - datasources.datasources.jdbc.ds_impala.USERPASSWORD.ENCRYPTED}
+    CLASSPATH = 'C:\Denodo\extensions\thirdparty\lib'
+    DATABASENAME = 'impala'
+    DATABASEVERSION = '2_3'
+    FETCHSIZE = 1000
+    BATCHINSERTSIZE = 200
+    VALIDATIONQUERY = 'select 1'
+    INITIALSIZE = 4
+    MAXIDLE = 0
+    MINIDLE = 0
+    MAXACTIVE = 20
+    EXHAUSTEDACTION = 0
+    TESTONBORROW = true
+    TESTONRETURN = false
+    TESTWHILEIDLE = false
+    TIMEBETWEENEVICTION = 0
+    NUMTESTPEREVICTION = 0
+    MINEVICTABLETIME = 0
+    POOLPREPAREDSTATEMENTS = false
+    MAXSLEEPINGPS = 0
+    INITIALCAPACITYPS = 0
+    USEEXTERNALTABLES ( 
+     ONMOVEREAD = false,
+     ONMOVEWRITE = true
+    )
+    DATAMOVEMENT_TARGET=true
+    BULK_LOAD_CONFIGURATION (
+        HADOOP_EXECUTABLE_LOCATION = 'hadoop.cmd'
+        HDFS_URI = 'hdfs://quickstart.cloudera:8020'
+    )
+    SOURCECONFIGURATION (
+        delegatescalarfunctionslist = (abs, acos, addday, addhour, addminute, addmonth, addsecond, addweek, addyear, ascii, asin, atan, atan2, case, cast, ceil, char, coalesce, concat, cos, cot, current_date, degrees, div, exp, firstdayofmonth, firstdayofweek, floor, formatdate, getday, getdayofweek, getdayofyear, getdaysbetween, gethour, getmillisecond, getminute, getmonth, getmonthsbetween, getsecond, gettimeinmillis, getyear, instr, lastdayofmonth, lastdayofweek, len, ln, log, lower, ltrim, max, min, mod, mult, nextweekday, now, nullif, pi, position, pow, power, previousweekday, radians, rand, regexp, removeaccents, repeat, replace, round, rtrim, sign, sin, sqrt, substr, substring, subtract, sum, tan, textcat, textconstant, trim, trunc, upper)
+    );
+

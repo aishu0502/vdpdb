@@ -1,0 +1,2 @@
+﻿CREATE OR REPLACE VIEW test_timeout AS SELECT * FROM wait(1000000) CONTEXT ('I18N' = 'au_cst');
+

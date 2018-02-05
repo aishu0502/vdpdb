@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW p_dv_twitter_flatten FOLDER = '/02 - base views' AS SELECT dv_twitter_flatten.pagesize AS pagesize, dv_twitter_flatten.query AS query, dv_twitter_flatten.favorited AS favorited, dv_twitter_flatten.retweeted AS retweeted, dv_twitter_flatten.possibly_sensitive AS possibly_sensitive, dv_twitter_flatten.lang AS lang, (dv_twitter_flatten.entities).hashtags AS hashtags FROM dv_twitter_flatten WHERE ((entities).hashtags.text in ('Hadoop', 'Amazon') AND possibly_sensitive is null ) CONTEXT ('I18N' = 'au_cst');
+
+ALTER VIEW p_dv_twitter_flatten
+ LAYOUT (dv_twitter_flatten = [20, 20, 478, 609]);
+

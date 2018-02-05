@@ -1,0 +1,152 @@
+﻿CREATE OR REPLACE WRAPPER XML bv_rest_xml
+    FOLDER = '/01 - datasources'
+    DATASOURCENAME=ds_rest_xml
+    TUPLEROOT 'html'
+    OUTPUTSCHEMA (html_0 = 'html' : REGISTER OF (
+        customer_sk = 'CUSTOMER_SK' : 'java.lang.String' (OBL) (DEFAULTVALUE='5') EXTERN,
+        head = 'head' : REGISTER OF (
+            meta = 'meta' : REGISTER OF (
+                httpequiv_0 = '#http-equiv' : 'java.lang.String',
+                content = '#content' : 'java.lang.String'
+            ),
+            title = 'title' : 'java.lang.String',
+            script = 'script' : ARRAY OF (
+                script = 'script' : REGISTER OF (
+                    type = '#type' : 'java.lang.String',
+                    src = '#src' : 'java.lang.String'
+                )
+            ),
+            link = 'link' : ARRAY OF (
+                link = 'link' : REGISTER OF (
+                    rel = '#rel' : 'java.lang.String',
+                    type = '#type' : 'java.lang.String',
+                    href = '#href' : 'java.lang.String'
+                )
+            )
+        ),
+        body = 'body' : REGISTER OF (
+            div = 'div' : ARRAY OF (
+                div = 'div' : REGISTER OF (
+                    id = '#id' : 'java.lang.String',
+                    div = 'div' : ARRAY OF (
+                        div = 'div' : REGISTER OF (
+                            class = '#class' : 'java.lang.String',
+                            div = 'div' : ARRAY OF (
+                                register_div = 'div' : REGISTER OF (
+                                    div = 'div' : 'java.lang.String',
+                                    id = '#id' : 'java.lang.String',
+                                    href = '#href' : 'java.lang.String',
+                                    title = '#title' : 'java.lang.String',
+                                    class = '#class' : 'java.lang.String',
+                                    a = 'a' : 'java.lang.String'
+                                )
+                            ),
+                            a = 'a' : REGISTER OF (
+                                href = '#href' : 'java.lang.String',
+                                title = '#title' : 'java.lang.String',
+                                rel = '#rel' : 'java.lang.String',
+                                a = 'a' : 'java.lang.String',
+                                class = '#class' : 'java.lang.String'
+                            ),
+                            id = '#id' : 'java.lang.String',
+                            script = 'script' : REGISTER OF (
+                                type = '#type' : 'java.lang.String',
+                                script = 'script' : 'java.lang.String'
+                            )
+                        )
+                    ),
+                    style = '#style' : 'java.lang.String'
+                )
+            )
+        )
+    )
+    );
+
+CREATE OR REPLACE TYPE ds_rest_xml_head_meta AS REGISTER OF (httpequiv_0:text, content:text);
+
+CREATE OR REPLACE TYPE ds_rest_xml_head_script_script AS REGISTER OF (type:text, src:text);
+
+CREATE OR REPLACE TYPE ds_rest_xml_head_script AS ARRAY OF ds_rest_xml_head_script_script;
+
+CREATE OR REPLACE TYPE ds_rest_xml_head_link_link AS REGISTER OF (rel:text, type:text, href:text);
+
+CREATE OR REPLACE TYPE ds_rest_xml_head_link AS ARRAY OF ds_rest_xml_head_link_link;
+
+CREATE OR REPLACE TYPE ds_rest_xml_head AS REGISTER OF (meta:ds_rest_xml_head_meta, title:text, script:ds_rest_xml_head_script, link:ds_rest_xml_head_link);
+
+CREATE OR REPLACE TYPE ds_rest_xml_body_div_div_div_div_div_register_div AS REGISTER OF (div:text, id:text, href:text, title:text, class:text, a:text);
+
+CREATE OR REPLACE TYPE ds_rest_xml_body_div_div_div_div_div AS ARRAY OF ds_rest_xml_body_div_div_div_div_div_register_div;
+
+CREATE OR REPLACE TYPE ds_rest_xml_body_div_div_div_div_a AS REGISTER OF (href:text, title:text, rel:text, a:text, class:text);
+
+CREATE OR REPLACE TYPE ds_rest_xml_body_div_div_div_div_script AS REGISTER OF (type:text, script:text);
+
+CREATE OR REPLACE TYPE ds_rest_xml_body_div_div_div_div AS REGISTER OF (class:text, div:ds_rest_xml_body_div_div_div_div_div, a:ds_rest_xml_body_div_div_div_div_a, id:text, script:ds_rest_xml_body_div_div_div_div_script);
+
+CREATE OR REPLACE TYPE ds_rest_xml_body_div_div_div AS ARRAY OF ds_rest_xml_body_div_div_div_div;
+
+CREATE OR REPLACE TYPE ds_rest_xml_body_div_div AS REGISTER OF (id:text, div:ds_rest_xml_body_div_div_div, style:text);
+
+CREATE OR REPLACE TYPE ds_rest_xml_body_div AS ARRAY OF ds_rest_xml_body_div_div;
+
+CREATE OR REPLACE TYPE ds_rest_xml_body AS REGISTER OF (div:ds_rest_xml_body_div);
+
+CREATE OR REPLACE TABLE bv_rest_xml I18N de (
+        customer_sk:text (defaultvalue = '5'), 
+        head:ds_rest_xml_head, 
+        body:ds_rest_xml_body
+    )
+    FOLDER = '/01 - datasources'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_rest_xml(
+        I18N de
+        CONSTRAINTS (
+             ADD customer_sk (=) OBL ONE
+             ADD head NOS ZERO ()
+             ADD head.meta NOS ZERO ()
+             ADD head.meta.httpequiv_0 NOS ZERO ()
+             ADD head.meta.content NOS ZERO ()
+             ADD head.title NOS ZERO ()
+             ADD head.script NOS ZERO ()
+             ADD head.script NOS ZERO ()
+             ADD head.script.type NOS ZERO ()
+             ADD head.script.src NOS ZERO ()
+             ADD head.link NOS ZERO ()
+             ADD head.link NOS ZERO ()
+             ADD head.link.rel NOS ZERO ()
+             ADD head.link.type NOS ZERO ()
+             ADD head.link.href NOS ZERO ()
+             ADD body NOS ZERO ()
+             ADD body.div NOS ZERO ()
+             ADD body.div NOS ZERO ()
+             ADD body.div.id NOS ZERO ()
+             ADD body.div.div NOS ZERO ()
+             ADD body.div.div NOS ZERO ()
+             ADD body.div.div.class NOS ZERO ()
+             ADD body.div.div.div NOS ZERO ()
+             ADD body.div.div.div NOS ZERO ()
+             ADD body.div.div.div.div NOS ZERO ()
+             ADD body.div.div.div.id NOS ZERO ()
+             ADD body.div.div.div.href NOS ZERO ()
+             ADD body.div.div.div.title NOS ZERO ()
+             ADD body.div.div.div.class NOS ZERO ()
+             ADD body.div.div.div.a NOS ZERO ()
+             ADD body.div.div.a NOS ZERO ()
+             ADD body.div.div.a.href NOS ZERO ()
+             ADD body.div.div.a.title NOS ZERO ()
+             ADD body.div.div.a.rel NOS ZERO ()
+             ADD body.div.div.a.a NOS ZERO ()
+             ADD body.div.div.a.class NOS ZERO ()
+             ADD body.div.div.id NOS ZERO ()
+             ADD body.div.div.script NOS ZERO ()
+             ADD body.div.div.script.type NOS ZERO ()
+             ADD body.div.div.script.script NOS ZERO ()
+             ADD body.div.style NOS ZERO ()
+        )
+        OUTPUTLIST (body, head
+        )
+        WRAPPER (xml bv_rest_xml)
+    );
+

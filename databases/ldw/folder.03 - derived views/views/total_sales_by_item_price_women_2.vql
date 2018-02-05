@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW total_sales_by_item_price_women_2 FOLDER = '/03 - derived views' AS SELECT bv_ldw_item_mysql.i_item_sk AS i_item_sk, sum(dv_store_sales_all.ss_sales_price) AS sum_agg FROM bv_ldw_item_mysql AS bv_ldw_item_mysql INNER JOIN dv_store_sales_all AS dv_store_sales_all ON bv_ldw_item_mysql.i_item_sk = dv_store_sales_all.ss_item_sk  WHERE (bv_ldw_item_mysql.i_category = 'Women' AND bv_ldw_item_mysql.i_current_price > dv_store_sales_all.ss_list_price) GROUP BY bv_ldw_item_mysql.i_item_sk CONTEXT ('I18N' = 'us_pst', DATAMOVEMENTPLAN = bv_ldw_item_mysql : OFF);
+
+ALTER VIEW total_sales_by_item_price_women_2
+ LAYOUT (bv_ldw_item_mysql = [20, 20, 200, 225], dv_store_sales_all = [446, 63, 200, 225]);
+

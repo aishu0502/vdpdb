@@ -1,0 +1,11 @@
+﻿CREATE OR REPLACE ASSOCIATION customer_sales_impala REFERENTIAL CONSTRAINT 
+FOLDER = '/04 - associations'
+    ENDPOINT sales "Bv_ldw_customer_mysql1" PRINCIPAL (1)
+    DESCRIPTION = 'sales to this customer'
+    ENDPOINT customer bv_ldw_store_sales_oracle (0,*)
+    DESCRIPTION = 'customer of this slae'
+    ADD MAPPING c_customer_sk=ss_customer_sk;
+
+ALTER ASSOCIATION customer_sales_impala
+ LAYOUT ("Bv_ldw_customer_mysql1" = [661, 221, 200, 225], bv_ldw_store_sales_oracle = [298, 240, 200, 225]);
+
